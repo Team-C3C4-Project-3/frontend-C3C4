@@ -39,6 +39,7 @@ function Home(props: HomeProps): JSX.Element {
       name={rec.name}
       submit_time={rec.submit_time}
       setCurrentRec={props.setCurrentRec}
+      currentUser={props.currentUser}
     />
   ));
 

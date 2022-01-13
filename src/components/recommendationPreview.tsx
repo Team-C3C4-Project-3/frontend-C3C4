@@ -13,11 +13,12 @@ export interface recSummaryProps {
   name: string;
   submit_time: string;
   setCurrentRec: React.Dispatch<React.SetStateAction<number>>;
+  currentUser: number
 }
 
 export default function RecentRecs(props: recSummaryProps): JSX.Element {
   const handleAddStudyList = async (user_id: number, rec_id: number) => {
-    postData(`/${user_id}/${rec_id}`, {
+    postData(`/study-list/${user_id}/${rec_id}`, {
       user_id,
       rec_id,
     });
@@ -37,7 +38,7 @@ export default function RecentRecs(props: recSummaryProps): JSX.Element {
       <a href={props.link}>Click Here</a>
       <p>{props.summary}</p>
       <p>Author of resource: {props.author}</p>
-      <button onClick={() => handleAddStudyList(props.user_id, props.id)}>
+      <button onClick={() => handleAddStudyList(props.currentUser, props.id)}>
         + Add to my study list
       </button>
     </div>

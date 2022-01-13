@@ -39,6 +39,7 @@ function StudyList(props: StudyListProps): JSX.Element {
       user_id={0}
       name={""}
       setCurrentRec={props.setCurrentRec}
+      currentUser={props.currentUser}
     />
   ));
 
