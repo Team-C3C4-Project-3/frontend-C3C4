@@ -17,7 +17,6 @@ export default async function postData(
         body: JSON.stringify(info),
       }
     );
-    // console.log(response);
     const jsonBody: httpResponsesProps = await response.json();
     return jsonBody;
   } catch (error) {
