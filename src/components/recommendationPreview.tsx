@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "../css/recPreview.css";
 import postData from "../utils/postData";
 
@@ -24,6 +24,20 @@ export default function RecentRecs(props: recSummaryProps): JSX.Element {
     });
   };
 
+  const handleRemoveStudyList = async (user_id: number, rec_id: number) => {
+    const response = await fetch(
+      `https://backend-c3c4.herokuapp.com/study-list/${user_id}/${rec_id}`,
+      {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      })
+    props.setCurrentRec(-3)
+    return response;
+
+  };
+
+  const location = useLocation();
+
   return (
     <div className="rec-preview">
       <Link
@@ -38,9 +52,14 @@ export default function RecentRecs(props: recSummaryProps): JSX.Element {
       <a href={props.link}>Click Here</a>
       <p>{props.summary}</p>
       <p>Author of resource: {props.author}</p>
-      <button onClick={() => handleAddStudyList(props.currentUser, props.id)}>
-        + Add to my study list
-      </button>
+      {location.pathname === "/" ?
+        <button onClick={() => handleAddStudyList(props.currentUser, props.id)}>
+          + Add to my study list
+        </button> :
+        <button onClick={() => handleRemoveStudyList(props.currentUser, props.id)}>
+          - Remove from study list
+        </button>
+      }
     </div>
   );
 }
