@@ -1,4 +1,4 @@
-import CommentProps from "./CommentProps"
+import CommentProps from "./CommentProps";
 interface recInfoProps {
   title: string;
   link: string;

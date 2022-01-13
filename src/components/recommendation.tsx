@@ -2,7 +2,7 @@ import "../css/recPreview.css";
 import { useEffect, useState } from "react";
 import { RecProps } from "../utils/RecProps";
 import { Link } from "react-router-dom";
-import Comment from "./comment"
+import Comment from "./comment";
 import postData from "../utils/postData";
 
 interface CurrentRecProps {
@@ -10,13 +10,16 @@ interface CurrentRecProps {
   currentUser: number;
 }
 
-export default function Recommendation({currentRec, currentUser}: CurrentRecProps): JSX.Element {
+export default function Recommendation({
+  currentRec,
+  currentUser,
+}: CurrentRecProps): JSX.Element {
   const [rec, setRec] = useState<RecProps>({
     recInfo: [],
     comments: [],
     tags: [],
   });
-  const [inputComment, setInputComment] = useState<string>("")
+  const [inputComment, setInputComment] = useState<string>("");
 
   useEffect(() => {
     const fetchRec = async () => {
@@ -32,22 +35,23 @@ export default function Recommendation({currentRec, currentUser}: CurrentRecProp
   }, [currentRec]);
 
   const comments = rec.comments.map((comment, idx) => (
-    <Comment key={idx}
-    id= {comment.id}
-    user_id = {comment.user_id}
-    rec_id = {comment.rec_id}
-    submit_time = {comment.submit_time}
-    comment = {comment.comment}
-    name = {comment.name}
+    <Comment
+      key={idx}
+      id={comment.id}
+      user_id={comment.user_id}
+      rec_id={comment.rec_id}
+      submit_time={comment.submit_time}
+      comment={comment.comment}
+      name={comment.name}
     />
-  ))
+  ));
 
   async function handleSubmitComment() {
     postData("/comment", {
       user_id: currentUser,
       rec_id: currentRec,
       comment: inputComment,
-    })
+    });
   }
   return (
     <div>
