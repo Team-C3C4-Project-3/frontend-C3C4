@@ -11,22 +11,8 @@ interface StudyListProps {
 }
 
 function StudyList(props: StudyListProps): JSX.Element {
-  const [studyList, setStudyList] = useState<recSummaryProps[]>(
-    [
-      {
-        id: 0,
-        title: "",
-        author: "",
-        type: "",
-        summary: "",
-        link: "",
-        submit_time: "",
-        user_id: 0,
-        name: "",
-        setCurrentRec: props.setCurrentUser
-      }
-    ]
-  )
+  const [studyList, setStudyList] = useState<recSummaryProps[]>([])
+
   useEffect(() => {
     const fetchStudyList = async (user_id: number) => {
       const response = await fetch(`https://backend-c3c4.herokuapp.com/studylist/${user_id}`);
@@ -58,10 +44,12 @@ function StudyList(props: StudyListProps): JSX.Element {
         currentUser={props.currentUser}
         setCurrentUser={props.setCurrentUser}
       />
-      <div>
-        <h1>StudyList</h1>
-        {studyListPreview}
-      </div>
+      {studyListPreview.length !== 0 && (
+        <div>
+          <h1>StudyList</h1>
+          {studyListPreview}
+        </div>
+      )}
     </div>
   );
 }
