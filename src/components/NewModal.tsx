@@ -52,12 +52,12 @@ export default function NewModal(props: { currentUser: number }): JSX.Element {
   }
 
   const handleSubmitRec = () => {
-    if (link !== "") {
+    if (title !== "" && link !== "" && author !== "" && type !== "" && reason !== "" && summary !== "") {
       postData("/rec", {
         title: title,
         link: link,
         author: author,
-        type: "podcast",
+        type: type,
         status: recommend,
         reason: reason,
         summary: summary,
@@ -65,7 +65,7 @@ export default function NewModal(props: { currentUser: number }): JSX.Element {
         user_id: props.currentUser,
       });
     } else {
-      window.alert("Cannot submit a paste with an empty link.");
+      window.alert("Cannot submit a recommendation with an empty field.");
     }
   };
 

@@ -34,7 +34,7 @@ export default function RecentRecs(props: recSummaryProps): JSX.Element {
         {props.title}
       </Link>
       <br />
-      <a href={props.link}>Click Here</a>
+      <a href={props.link}>Go to resource</a>
       <p>{props.summary}</p>
       <p>Author of resource: {props.author}</p>
       <button onClick={() => handleAddStudyList(props.user_id, props.id)}>
