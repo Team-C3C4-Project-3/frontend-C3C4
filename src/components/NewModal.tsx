@@ -17,6 +17,7 @@ export default function NewModal(props: { currentUser: number }): JSX.Element {
   const [recommend, setRecommend] = useState<string>("");
   const [type, setType] = useState<string>("");
   const [recTypes, setRecTypes] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>([]);
 
   useEffect(() => {
     TypeFetch().then((result) => {
