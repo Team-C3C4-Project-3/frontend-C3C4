@@ -3,17 +3,20 @@ import { useEffect, useState } from "react";
 import { RecProps } from "../utils/RecProps";
 import { Link } from "react-router-dom";
 import Comment from "./comment"
+import postData from "../utils/postData";
 
 interface CurrentRecProps {
   currentRec: number;
+  currentUser: number;
 }
 
-export default function Recommendation({currentRec}: CurrentRecProps): JSX.Element {
+export default function Recommendation({currentRec, currentUser}: CurrentRecProps): JSX.Element {
   const [rec, setRec] = useState<RecProps>({
     recInfo: [],
     comments: [],
     tags: [],
   });
+  const [inputComment, setInputComment] = useState<string>("")
 
   useEffect(() => {
     const fetchRec = async () => {
@@ -38,6 +41,14 @@ export default function Recommendation({currentRec}: CurrentRecProps): JSX.Eleme
     name = {comment.name}
     />
   ))
+
+  async function handleSubmitComment() {
+    postData("/comment", {
+      user_id: currentUser,
+      rec_id: currentRec,
+      comment: inputComment,
+    })
+  }
   return (
     <div>
       {rec.recInfo.length === 0 ? (
@@ -55,6 +66,16 @@ export default function Recommendation({currentRec}: CurrentRecProps): JSX.Eleme
             {rec.recInfo[0].status}: {rec.recInfo[0].reason}
           </p>
           <p>Summary: {rec.recInfo[0].summary}</p>
+          <form className="form" onSubmit={handleSubmitComment}>
+            <textarea
+              id="commentInput"
+              rows={5}
+              placeholder="Comment on this recommendation"
+              onChange={(e) => setInputComment(e.target.value)}
+            />
+
+            <button type="submit"> Submit</button>
+          </form>
           <div>
             {rec.comments.length !== 0 && (
               <div>

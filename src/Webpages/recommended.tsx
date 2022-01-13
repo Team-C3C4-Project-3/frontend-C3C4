@@ -17,7 +17,7 @@ function Recommended(props: RecommendedProps): JSX.Element {
         setCurrentUser={props.setCurrentUser}
       />
 
-      <Recommendation currentRec={props.currentRec} />
+      <Recommendation currentRec={props.currentRec} currentUser={props.currentUser}/>
     </div>
   );
 }
