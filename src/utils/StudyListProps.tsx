@@ -1,6 +1,6 @@
 export interface PostStudyListProps {
-    user_id: number,
-    rec_id: number,
+  user_id: number;
+  rec_id: number;
 }
 
 // export interface GetStudyListProps {

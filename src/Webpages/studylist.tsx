@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import RecentRecs, { recSummaryProps } from "../components/recommendationPreview";
+import RecentRecs, {
+  recSummaryProps,
+} from "../components/recommendationPreview";
 import SideBarMenu from "../components/sidebarmenu";
 import "../css/app.css";
 
@@ -11,16 +13,18 @@ interface StudyListProps {
 }
 
 function StudyList(props: StudyListProps): JSX.Element {
-  const [studyList, setStudyList] = useState<recSummaryProps[]>([])
+  const [studyList, setStudyList] = useState<recSummaryProps[]>([]);
 
   useEffect(() => {
     const fetchStudyList = async (user_id: number) => {
-      const response = await fetch(`https://backend-c3c4.herokuapp.com/studylist/${user_id}`);
+      const response = await fetch(
+        `https://backend-c3c4.herokuapp.com/studylist/${user_id}`
+      );
       const jsonBody = await response.json();
       setStudyList(jsonBody.data);
     };
-    fetchStudyList(props.currentUser)
-  }, [props.currentUser])
+    fetchStudyList(props.currentUser);
+  }, [props.currentUser]);
 
   const studyListPreview = studyList.map((item, index) => (
     <RecentRecs
@@ -36,7 +40,7 @@ function StudyList(props: StudyListProps): JSX.Element {
       name={""}
       setCurrentRec={props.setCurrentRec}
     />
-  ))
+  ));
 
   return (
     <div className="body-grid">
