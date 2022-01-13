@@ -6,7 +6,7 @@ import postData from "../utils/postData";
 import TypeFetch from "../utils/TypeFetch";
 // import separateCapitalise from "../utils/separateCapitalise";
 
-export default function NewModal(): JSX.Element {
+export default function NewModal(props: { currentUser: number }): JSX.Element {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState<string>("");
   const [author, setAuthor] = useState<string>("");
@@ -62,7 +62,7 @@ export default function NewModal(): JSX.Element {
         reason: reason,
         summary: summary,
         tags: ["creative-coding"],
-        user_id: 1,
+        user_id: props.currentUser,
       });
     } else {
       window.alert("Cannot submit a paste with an empty link.");

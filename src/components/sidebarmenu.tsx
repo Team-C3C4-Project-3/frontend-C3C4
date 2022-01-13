@@ -97,7 +97,7 @@ export default function SideBarMenu(props: SidebarProps): JSX.Element {
 
         <br id="inner" />
         <br id="inner" />
-        <NewModal />
+        <NewModal currentUser={props.currentUser} />
         <br id="inner" />
         <br id="inner" />
         <br id="inner" />
