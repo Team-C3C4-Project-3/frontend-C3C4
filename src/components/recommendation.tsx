@@ -2,14 +2,13 @@ import "../css/recPreview.css";
 import { useEffect, useState } from "react";
 import { RecProps } from "../utils/RecProps";
 import { Link } from "react-router-dom";
+import Comment from "./comment"
 
 interface CurrentRecProps {
   currentRec: number;
 }
 
-export default function Recommendation({
-  currentRec,
-}: CurrentRecProps): JSX.Element {
+export default function Recommendation({currentRec}: CurrentRecProps): JSX.Element {
   const [rec, setRec] = useState<RecProps>({
     recInfo: [],
     comments: [],
@@ -28,6 +27,17 @@ export default function Recommendation({
     };
     fetchRec();
   }, [currentRec]);
+
+  const comments = rec.comments.map((comment, idx) => (
+    <Comment key={idx}
+    id= {comment.id}
+    user_id = {comment.user_id}
+    rec_id = {comment.rec_id}
+    submit_time = {comment.submit_time}
+    comment = {comment.comment}
+    name = {comment.name}
+    />
+  ))
   return (
     <div>
       {rec.recInfo.length === 0 ? (
@@ -49,8 +59,7 @@ export default function Recommendation({
             {rec.comments.length !== 0 && (
               <div>
                 <h5>Comments:</h5>
-                <p>{rec.comments[0].comment}</p>
-                <p>{rec.comments[0].submit_time}</p>
+                {comments}
               </div>
             )}
           </div>
