@@ -1,9 +1,10 @@
 import httpResponsesProps from "../utils/httpResponsesProps";
 import { NewRecProps } from "./NewRecProps";
+import { PostStudyListProps } from "./StudyListProps";
 
 export default async function postData(
   postEndpoint: string,
-  info: NewRecProps
+  info: NewRecProps | PostStudyListProps
 ): Promise<httpResponsesProps | void> {
   //postType: newRec, comment, studyList
   try {

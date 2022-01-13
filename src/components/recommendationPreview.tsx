@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "../css/recPreview.css";
+import postData from "../utils/postData";
 
 export interface recSummaryProps {
   id: number;
@@ -10,10 +11,18 @@ export interface recSummaryProps {
   link: string;
   user_id: number;
   name: string;
+  submit_time: string;
   setCurrentRec: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export default function RecentRecs(props: recSummaryProps): JSX.Element {
+  const handleAddStudyList = async (user_id: number, rec_id: number) => {
+    postData(`/${user_id}/${rec_id}`, {
+      user_id,
+      rec_id
+    })
+  }
+
   return (
     <div className="rec-preview">
       <Link
@@ -27,7 +36,8 @@ export default function RecentRecs(props: recSummaryProps): JSX.Element {
       <br />
       <a href={props.link}>Click Here</a>
       <p>{props.summary}</p>
-      <p>uploaded by {props.author}</p>
+      <p>Author of resource: {props.author}</p>
+      <button onClick={() => handleAddStudyList(props.user_id, props.id)}>+ Add to my study list</button>
     </div>
   );
 }

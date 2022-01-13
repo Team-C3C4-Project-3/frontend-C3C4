@@ -29,6 +29,8 @@ function WebsiteRoutes(): JSX.Element {
             <StudyList
               currentUser={currentUser}
               setCurrentUser={setCurrentUser}
+              currentRec={currentRec}
+              setCurrentRec={setCurrentRec}
             />
           }
         />
