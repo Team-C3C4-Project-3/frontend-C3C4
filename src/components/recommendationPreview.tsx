@@ -13,7 +13,7 @@ export interface recSummaryProps {
   name: string;
   submit_time: string;
   setCurrentRec: React.Dispatch<React.SetStateAction<number>>;
-  currentUser: number
+  currentUser: number;
 }
 
 export default function RecentRecs(props: recSummaryProps): JSX.Element {
