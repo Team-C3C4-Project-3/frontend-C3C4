@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import Modal from "react-modal";
 import "../css/NewModal.css";
 import separateCapitalise from "../utils/separateCapitalise";
@@ -82,6 +82,10 @@ export default function NewModal(props: { currentUser: number }): JSX.Element {
       {separateCapitalise(type)}
     </option>
   ));
+
+  function handleSetTags(e: React.ChangeEvent<HTMLSelectElement>) {
+    setTags([...tags, e.target.value]);
+  }
 
   useEffect(() => {
     console.log(type);
@@ -199,7 +203,15 @@ export default function NewModal(props: { currentUser: number }): JSX.Element {
             placeholder="Summary of the description"
             onChange={(e) => setSummary(e.target.value)}
           />
-
+          <label htmlFor="tagInput">Please select the tags</label>
+          <select
+            key="tagInput"
+            id="tagInput"
+            // value={tags}
+            onChange={(e) => handleSetTags(e)}
+          >
+            {typeOptions}
+          </select>
           <button type="submit"> Submit</button>
         </form>
       </Modal>
