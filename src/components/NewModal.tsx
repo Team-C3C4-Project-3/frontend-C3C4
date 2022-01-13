@@ -52,7 +52,14 @@ export default function NewModal(props: { currentUser: number }): JSX.Element {
   }
 
   const handleSubmitRec = () => {
-    if (title !== "" && link !== "" && author !== "" && type !== "" && reason !== "" && summary !== "") {
+    if (
+      title !== "" &&
+      link !== "" &&
+      author !== "" &&
+      type !== "" &&
+      reason !== "" &&
+      summary !== ""
+    ) {
       postData("/rec", {
         title: title,
         link: link,
