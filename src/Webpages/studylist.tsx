@@ -52,22 +52,20 @@ function StudyList(props: StudyListProps): JSX.Element {
         currentUser={props.currentUser}
         setCurrentUser={props.setCurrentUser}
       />
-      {
-        props.currentUser === 0 ?
-          (<Link to="/">Sign in to see your study list</Link>) :
-          studyList.length === 0 ?
-            (<Link to="/">Add resources to your study list</Link>) :
-            (studyListPreview.length !== 0 && (
-              <div>
-                <h1>StudyList</h1>
-                {studyListPreview}
-              </div>
-            ))
-      }
+      {props.currentUser === 0 ? (
+        <Link to="/">Sign in to see your study list</Link>
+      ) : studyList.length === 0 ? (
+        <Link to="/">Add resources to your study list</Link>
+      ) : (
+        studyListPreview.length !== 0 && (
+          <div>
+            <h1>StudyList</h1>
+            {studyListPreview}
+          </div>
+        )
+      )}
     </div>
   );
 }
 
 export default StudyList;
-
-

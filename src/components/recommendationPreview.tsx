@@ -30,10 +30,10 @@ export default function RecentRecs(props: recSummaryProps): JSX.Element {
       {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
-      })
-    props.setCurrentRec(-3)
+      }
+    );
+    props.setCurrentRec(-3);
     return response;
-
   };
 
   const location = useLocation();
@@ -52,14 +52,17 @@ export default function RecentRecs(props: recSummaryProps): JSX.Element {
       <a href={props.link}>Click Here</a>
       <p>{props.summary}</p>
       <p>Author of resource: {props.author}</p>
-      {location.pathname === "/" ?
+      {location.pathname === "/" ? (
         <button onClick={() => handleAddStudyList(props.currentUser, props.id)}>
           + Add to my study list
-        </button> :
-        <button onClick={() => handleRemoveStudyList(props.currentUser, props.id)}>
+        </button>
+      ) : (
+        <button
+          onClick={() => handleRemoveStudyList(props.currentUser, props.id)}
+        >
           - Remove from study list
         </button>
-      }
+      )}
     </div>
   );
 }
