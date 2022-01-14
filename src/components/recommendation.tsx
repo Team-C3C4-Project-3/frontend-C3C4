@@ -65,16 +65,24 @@ export default function Recommendation({
       ) : (
         <div>
           <h1>{rec.recInfo[0].title}</h1>
+          <a href={rec.recInfo[0].link}>Go to resource</a>
           <h3>By: {rec.recInfo[0].author}</h3>
           <h4>
             Submitted by: {rec.recInfo[0].name} on {rec.recInfo[0].submit_time}
           </h4>
+          <p>Type: {rec.recInfo[0].type}</p>
           <p>
             {rec.recInfo[0].status}: {rec.recInfo[0].reason}
           </p>
           <p>Summary: {rec.recInfo[0].summary}</p>
-          <p>Tags: {rec.tags[0].tag}</p>
-
+          <p>Tags: {rec.tags.map((obj) => obj.tag).join(", ")}</p>
+          <form className="form" onSubmit={handleSubmitComment}>
+            <textarea
+              id="commentInput"
+              rows={5}
+              placeholder="Comment on this recommendation"
+              onChange={(e) => setInputComment(e.target.value)}
+            />
           {currentUser !== 0 && (
             <form className="form">
               <textarea
