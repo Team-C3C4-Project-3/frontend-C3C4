@@ -100,6 +100,12 @@ export default function NewModal(props: { currentUser: number }): JSX.Element {
     </option>
   ));
 
+  const tagDropdownList = tagsOptions.map((tag) => (
+    <option key={tag} value={tag}>
+      {tag}
+    </option>
+  ));
+
   function handleSetTags(e: React.ChangeEvent<HTMLSelectElement>) {
     setTags([...tags, e.target.value]);
   }
@@ -227,8 +233,9 @@ export default function NewModal(props: { currentUser: number }): JSX.Element {
             // value={tags}
             onChange={(e) => handleSetTags(e)}
           >
-            {typeOptions}
+            {tagDropdownList}
           </select>
+          <p>{tags}</p>
           <button type="submit"> Submit</button>
         </form>
       </Modal>
