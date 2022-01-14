@@ -29,7 +29,7 @@ function StudyList(props: StudyListProps): JSX.Element {
     fetchStudyList(props.currentUser);
   }, [props.currentUser, props.currentRec]);
 
-  const studyListPreview = studyList.map((item, index) => (
+  const studyListPreview = studyList === undefined ? []: studyList.map((item, index) => (
     <RecentRecs
       key={index}
       title={item.title}
@@ -52,18 +52,21 @@ function StudyList(props: StudyListProps): JSX.Element {
         currentUser={props.currentUser}
         setCurrentUser={props.setCurrentUser}
       />
+      <div className="study-list"> 
+      <h1>StudyList</h1>
       {props.currentUser === 0 ? (
         <Link to="/">Sign in to see your study list</Link>
-      ) : studyList.length === 0 ? (
+      ) : studyListPreview.length === 0 ? (
         <Link to="/">Add resources to your study list</Link>
       ) : (
-        studyListPreview.length !== 0 && (
+        studyListPreview.length !== 0 && 
+        (
           <div>
-            <h1>StudyList</h1>
             {studyListPreview}
           </div>
         )
       )}
+      </div>
     </div>
   );
 }
