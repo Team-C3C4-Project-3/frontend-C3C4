@@ -1,3 +1,4 @@
+import CommentProps from "./CommentProps";
 interface recInfoProps {
   title: string;
   link: string;
@@ -14,12 +15,12 @@ interface recInfoProps {
   dislikes: number;
 }
 
-interface commentProps {
-  user_id: number;
-  rec_id: number;
-  comment: string;
-  submit_time: string;
-}
+// interface commentProps {
+//   user_id: number;
+//   rec_id: number;
+//   comment: string;
+//   submit_time: string;
+// }
 
 interface tagProps {
   user_id: number;
@@ -29,6 +30,6 @@ interface tagProps {
 
 export interface RecProps {
   recInfo: recInfoProps[];
-  comments: commentProps[];
+  comments: CommentProps[];
   tags: tagProps[];
 }

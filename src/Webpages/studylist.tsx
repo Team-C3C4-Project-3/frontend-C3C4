@@ -29,22 +29,25 @@ function StudyList(props: StudyListProps): JSX.Element {
     fetchStudyList(props.currentUser);
   }, [props.currentUser, props.currentRec]);
 
-  const studyListPreview = studyList.map((item, index) => (
-    <RecentRecs
-      key={index}
-      title={item.title}
-      author={item.author}
-      type={item.type}
-      summary={item.summary}
-      link={item.link}
-      submit_time={item.submit_time}
-      id={item.id}
-      user_id={item.user_id}
-      name={item.name}
-      setCurrentRec={props.setCurrentRec}
-      currentUser={props.currentUser}
-    />
-  ));
+  const studyListPreview =
+    studyList === undefined
+      ? []
+      : studyList.map((item, index) => (
+          <RecentRecs
+            key={index}
+            title={item.title}
+            author={item.author}
+            type={item.type}
+            summary={item.summary}
+            link={item.link}
+            submit_time={item.submit_time}
+            id={item.id}
+            user_id={item.user_id}
+            name={item.name}
+            setCurrentRec={props.setCurrentRec}
+            currentUser={props.currentUser}
+          />
+        ));
 
   return (
     <div className="body-grid">
@@ -52,18 +55,16 @@ function StudyList(props: StudyListProps): JSX.Element {
         currentUser={props.currentUser}
         setCurrentUser={props.setCurrentUser}
       />
-      {props.currentUser === 0 ? (
-        <Link to="/">Sign in to see your study list</Link>
-      ) : studyList.length === 0 ? (
-        <Link to="/">Add resources to your study list</Link>
-      ) : (
-        studyListPreview.length !== 0 && (
-          <div>
-            <h1>StudyList</h1>
-            {studyListPreview}
-          </div>
-        )
-      )}
+      <div className="study-list">
+        <h1>StudyList</h1>
+        {props.currentUser === 0 ? (
+          <Link to="/">Sign in to see your study list</Link>
+        ) : studyListPreview.length === 0 ? (
+          <Link to="/">Add resources to your study list</Link>
+        ) : (
+          studyListPreview.length !== 0 && <div>{studyListPreview}</div>
+        )}
+      </div>
     </div>
   );
 }
