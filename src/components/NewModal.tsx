@@ -1,10 +1,11 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import "../css/NewModal.css";
 import separateCapitalise from "../utils/separateCapitalise";
 import postData from "../utils/postData";
 import TypeFetch from "../utils/TypeFetch";
 // import separateCapitalise from "../utils/separateCapitalise";
+import TagsFetch from "../utils/TagsFetch";
 
 export default function NewModal(props: { currentUser: number }): JSX.Element {
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -18,6 +19,7 @@ export default function NewModal(props: { currentUser: number }): JSX.Element {
   const [type, setType] = useState<string>("");
   const [recTypes, setRecTypes] = useState<string[]>([]);
   const [tags, setTags] = useState<string[]>([]);
+  const [tagsOptions, setTagsOptions] = useState<string[]>([]);
 
   useEffect(() => {
     TypeFetch().then((result) => {
@@ -26,6 +28,21 @@ export default function NewModal(props: { currentUser: number }): JSX.Element {
       }
     });
   }, []);
+
+  // useEffect(() => {
+  //   async () => {
+  //     setTagsOptions(await TagsFetch());
+  //   };
+  // }, []);
+
+  useEffect(() => {
+    TagsFetch().then((result) => {
+      if (result) {
+        setTagsOptions(result);
+      }
+    });
+  }, []);
+  console.log(tagsOptions);
 
   function openModal() {
     setIsOpen(true);
