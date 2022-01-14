@@ -32,7 +32,7 @@ export default function RecentRecs(props: recSummaryProps): JSX.Element {
         headers: { "Content-Type": "application/json" },
       }
     );
-    props.setCurrentRec(-3);
+    props.setCurrentRec(rec_id);
     return response;
   };
 
