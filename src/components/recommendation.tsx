@@ -91,7 +91,6 @@ export default function Recommendation({
               </div>
             )}
           </div>
-          
         </div>
       )}
     </div>
