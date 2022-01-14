@@ -106,8 +106,12 @@ export default function NewModal(props: { currentUser: number }): JSX.Element {
     </option>
   ));
 
+  // if tags[] includes option they want to select, don't add it to tags[]
+
   function handleSetTags(e: React.ChangeEvent<HTMLSelectElement>) {
-    setTags([...tags, e.target.value]);
+    if (tags.includes(e.target.value) === false) {
+      setTags([...tags, e.target.value]);
+    }
   }
 
   useEffect(() => {
