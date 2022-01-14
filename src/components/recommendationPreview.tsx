@@ -52,7 +52,8 @@ export default function RecentRecs(props: recSummaryProps): JSX.Element {
       <a href={props.link}>Click Here</a>
       <p>{props.summary}</p>
       <p>Author of resource: {props.author}</p>
-      {location.pathname === "/" ? (
+      {location.pathname === "/" ? ( 
+        props.currentUser !== 0 &&
         <button onClick={() => handleAddStudyList(props.currentUser, props.id)}>
           + Add to my study list
         </button>
