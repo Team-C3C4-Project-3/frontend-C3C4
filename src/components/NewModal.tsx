@@ -5,6 +5,7 @@ import separateCapitalise from "../utils/separateCapitalise";
 import postData from "../utils/postData";
 import TypeFetch from "../utils/TypeFetch";
 // import separateCapitalise from "../utils/separateCapitalise";
+import TagsFetch from "../utils/TagsFetch";
 
 export default function NewModal(props: { currentUser: number }): JSX.Element {
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -17,6 +18,8 @@ export default function NewModal(props: { currentUser: number }): JSX.Element {
   const [recommend, setRecommend] = useState<string>("");
   const [type, setType] = useState<string>("");
   const [recTypes, setRecTypes] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>([]);
+  const [tagsOptions, setTagsOptions] = useState<string[]>([]);
 
   useEffect(() => {
     TypeFetch().then((result) => {
@@ -25,6 +28,21 @@ export default function NewModal(props: { currentUser: number }): JSX.Element {
       }
     });
   }, []);
+
+  // useEffect(() => {
+  //   async () => {
+  //     setTagsOptions(await TagsFetch());
+  //   };
+  // }, []);
+
+  useEffect(() => {
+    TagsFetch().then((result) => {
+      if (result) {
+        setTagsOptions(result);
+      }
+    });
+  }, []);
+  console.log(tagsOptions);
 
   function openModal() {
     setIsOpen(true);
@@ -52,12 +70,19 @@ export default function NewModal(props: { currentUser: number }): JSX.Element {
   }
 
   const handleSubmitRec = () => {
-    if (link !== "") {
+    if (
+      title !== "" &&
+      link !== "" &&
+      author !== "" &&
+      type !== "" &&
+      reason !== "" &&
+      summary !== ""
+    ) {
       postData("/rec", {
         title: title,
         link: link,
         author: author,
-        type: "podcast",
+        type: type,
         status: recommend,
         reason: reason,
         summary: summary,
@@ -65,7 +90,7 @@ export default function NewModal(props: { currentUser: number }): JSX.Element {
         user_id: props.currentUser,
       });
     } else {
-      window.alert("Cannot submit a paste with an empty link.");
+      window.alert("Cannot submit a recommendation with an empty field.");
     }
   };
 
@@ -74,6 +99,20 @@ export default function NewModal(props: { currentUser: number }): JSX.Element {
       {separateCapitalise(type)}
     </option>
   ));
+
+  const tagDropdownList = tagsOptions.map((tag) => (
+    <option key={tag} value={tag}>
+      {tag}
+    </option>
+  ));
+
+  // if tags[] includes option they want to select, don't add it to tags[]
+
+  function handleSetTags(e: React.ChangeEvent<HTMLSelectElement>) {
+    if (tags.includes(e.target.value) === false) {
+      setTags([...tags, e.target.value]);
+    }
+  }
 
   useEffect(() => {
     console.log(type);
@@ -191,7 +230,29 @@ export default function NewModal(props: { currentUser: number }): JSX.Element {
             placeholder="Summary of the description"
             onChange={(e) => setSummary(e.target.value)}
           />
-
+          <label htmlFor="tagInput">Please select the tags</label>
+          <select
+            key="tagInput"
+            id="tagInput"
+            // value={tags}
+            onChange={(e) => handleSetTags(e)}
+          >
+            <option value=""> -- select an option -- </option>
+            {tagDropdownList}
+          </select>
+          <p>
+            {tags.map((element) => (
+              <li key={element} value={element}>
+                {element}
+                {"    "}
+                <button
+                  onClick={() => setTags(tags.filter((tag) => tag !== element))}
+                >
+                  x
+                </button>
+              </li>
+            ))}
+          </p>
           <button type="submit"> Submit</button>
         </form>
       </Modal>
