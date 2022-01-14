@@ -76,7 +76,6 @@ export default function Recommendation({
           </p>
           <p>Summary: {rec.recInfo[0].summary}</p>
           <p>Tags: {rec.tags.map((obj) => obj.tag).join(", ")}</p>
-        
 
           {currentUser !== 0 && (
             <form className="form">
