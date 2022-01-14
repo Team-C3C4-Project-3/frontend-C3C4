@@ -240,7 +240,19 @@ export default function NewModal(props: { currentUser: number }): JSX.Element {
             <option value=""> -- select an option -- </option>
             {tagDropdownList}
           </select>
-          <p>{tags}</p>
+          <p>
+            {tags.map((element) => (
+              <li key={element} value={element}>
+                {element}
+                {"    "}
+                <button
+                  onClick={() => setTags(tags.filter((tag) => tag !== element))}
+                >
+                  x
+                </button>
+              </li>
+            ))}
+          </p>
           <button type="submit"> Submit</button>
         </form>
       </Modal>
