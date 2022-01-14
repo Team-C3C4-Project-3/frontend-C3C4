@@ -8,11 +8,13 @@ import postData from "../utils/postData";
 interface CurrentRecProps {
   currentRec: number;
   currentUser: number;
+  setCurrentRec: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export default function Recommendation({
   currentRec,
   currentUser,
+  setCurrentRec
 }: CurrentRecProps): JSX.Element {
   const [rec, setRec] = useState<RecProps>({
     recInfo: [],
@@ -52,6 +54,7 @@ export default function Recommendation({
       rec_id: currentRec,
       comment: inputComment,
     });
+    setCurrentRec(currentRec)
   }
   return (
     <div>
@@ -70,7 +73,10 @@ export default function Recommendation({
             {rec.recInfo[0].status}: {rec.recInfo[0].reason}
           </p>
           <p>Summary: {rec.recInfo[0].summary}</p>
-          <form className="form" onSubmit={handleSubmitComment}>
+          <p>Tags: {rec.tags[0].tag}</p>
+
+          {currentUser !== 0 &&
+          <form className="form" >
             <textarea
               id="commentInput"
               rows={5}
@@ -78,8 +84,9 @@ export default function Recommendation({
               onChange={(e) => setInputComment(e.target.value)}
             />
 
-            <button type="submit"> Submit</button>
+            <button type="submit" onClick={handleSubmitComment}> Submit</button>
           </form>
+}
           <div>
             {rec.comments.length !== 0 && (
               <div>
@@ -88,7 +95,6 @@ export default function Recommendation({
               </div>
             )}
           </div>
-          <p>{rec.tags[0].tag}</p>
         </div>
       )}
     </div>

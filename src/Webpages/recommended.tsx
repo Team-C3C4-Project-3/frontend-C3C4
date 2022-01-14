@@ -20,6 +20,7 @@ function Recommended(props: RecommendedProps): JSX.Element {
       <Recommendation
         currentRec={props.currentRec}
         currentUser={props.currentUser}
+        setCurrentRec = {props.setCurrentRec}
       />
     </div>
   );
