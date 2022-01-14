@@ -14,7 +14,7 @@ interface CurrentRecProps {
 export default function Recommendation({
   currentRec,
   currentUser,
-  setCurrentRec
+  setCurrentRec,
 }: CurrentRecProps): JSX.Element {
   const [rec, setRec] = useState<RecProps>({
     recInfo: [],
@@ -54,7 +54,7 @@ export default function Recommendation({
       rec_id: currentRec,
       comment: inputComment,
     });
-    setCurrentRec(currentRec)
+    setCurrentRec(currentRec);
   }
   return (
     <div>
@@ -75,18 +75,21 @@ export default function Recommendation({
           <p>Summary: {rec.recInfo[0].summary}</p>
           <p>Tags: {rec.tags[0].tag}</p>
 
-          {currentUser !== 0 &&
-          <form className="form" >
-            <textarea
-              id="commentInput"
-              rows={5}
-              placeholder="Comment on this recommendation"
-              onChange={(e) => setInputComment(e.target.value)}
-            />
+          {currentUser !== 0 && (
+            <form className="form">
+              <textarea
+                id="commentInput"
+                rows={5}
+                placeholder="Comment on this recommendation"
+                onChange={(e) => setInputComment(e.target.value)}
+              />
 
-            <button type="submit" onClick={handleSubmitComment}> Submit</button>
-          </form>
-}
+              <button type="submit" onClick={handleSubmitComment}>
+                {" "}
+                Submit
+              </button>
+            </form>
+          )}
           <div>
             {rec.comments.length !== 0 && (
               <div>
