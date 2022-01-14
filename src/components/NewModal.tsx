@@ -233,6 +233,7 @@ export default function NewModal(props: { currentUser: number }): JSX.Element {
             // value={tags}
             onChange={(e) => handleSetTags(e)}
           >
+            <option value=""> -- select an option -- </option>
             {tagDropdownList}
           </select>
           <p>{tags}</p>
