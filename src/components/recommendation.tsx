@@ -72,6 +72,7 @@ export default function Recommendation({
             {rec.recInfo[0].status}: {rec.recInfo[0].reason}
           </p>
           <p>Summary: {rec.recInfo[0].summary}</p>
+          <p>Tags: {rec.tags.map((obj) => obj.tag).join(", ")}</p>
           <form className="form" onSubmit={handleSubmitComment}>
             <textarea
               id="commentInput"
@@ -90,7 +91,6 @@ export default function Recommendation({
               </div>
             )}
           </div>
-          <p>{rec.tags[0].tag}</p>
         </div>
       )}
     </div>

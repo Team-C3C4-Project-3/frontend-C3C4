@@ -86,7 +86,7 @@ export default function NewModal(props: { currentUser: number }): JSX.Element {
         status: recommend,
         reason: reason,
         summary: summary,
-        tags: ["creative-coding"],
+        tags: tags,
         user_id: props.currentUser,
       });
     } else {
