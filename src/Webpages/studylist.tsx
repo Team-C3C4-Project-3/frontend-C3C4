@@ -5,15 +5,9 @@ import RecentRecs, {
 } from "../components/recommendationPreview";
 import SideBarMenu from "../components/sidebarmenu";
 import "../css/app.css";
+import { PageProps } from "../utils/PageProps";
 
-interface StudyListProps {
-  currentUser: number;
-  setCurrentUser: React.Dispatch<React.SetStateAction<number>>;
-  currentRec: number;
-  setCurrentRec: React.Dispatch<React.SetStateAction<number>>;
-}
-
-function StudyList(props: StudyListProps): JSX.Element {
+function StudyList(props: PageProps): JSX.Element {
   const [studyList, setStudyList] = useState<recSummaryProps[]>([]);
 
   useEffect(() => {

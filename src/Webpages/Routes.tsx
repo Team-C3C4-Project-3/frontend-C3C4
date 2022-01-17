@@ -1,9 +1,16 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useParams,
+} from "react-router-dom";
 import Home from "./Home";
 import StudyList from "./studylist";
 import Recommended from "./recommended";
 import "../css/app.css";
 import { useState } from "react";
+import { PageProps } from "../utils/PageProps";
+import TypePage from "./TypePage";
 
 function WebsiteRoutes(): JSX.Element {
   const [currentUser, setCurrentUser] = useState<number>(0);
@@ -45,9 +52,36 @@ function WebsiteRoutes(): JSX.Element {
             />
           }
         />
+        <Route
+          path="/type/:type"
+          element={
+            <TypeChild
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+              currentRec={currentRec}
+              setCurrentRec={setCurrentRec}
+            />
+          }
+        />
       </Routes>
     </Router>
   );
 }
 
 export default WebsiteRoutes;
+
+function TypeChild(props: PageProps): JSX.Element {
+  const { type } = useParams();
+
+  return (
+    <TypePage
+      props={{
+        currentUser: props.currentUser,
+        setCurrentUser: props.setCurrentUser,
+        currentRec: props.currentRec,
+        setCurrentRec: props.setCurrentRec,
+      }}
+      routeEndpoints={type ? type : ""}
+    />
+  );
+}

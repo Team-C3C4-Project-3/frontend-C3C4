@@ -48,9 +48,14 @@ export default function SideBarMenu(props: SidebarProps): JSX.Element {
     });
   }, []);
   const types = recTypes.map((element: string, index: number) => (
-    <a className="sidebarbutton" id="inner" href="/" key={index}>
+    <Link
+      to={`/type/${element}`}
+      className="sidebarbutton"
+      id="inner"
+      key={index}
+    >
       <span className="span">{separateCapitalise(element)}</span>
-    </a>
+    </Link>
   ));
 
   return (
@@ -92,9 +97,6 @@ export default function SideBarMenu(props: SidebarProps): JSX.Element {
             </Link>
           </div>
         )}
-
-        {/* <br id="inner" /> */}
-
         <br id="inner" />
         <br id="inner" />
         <NewModal currentUser={props.currentUser} />

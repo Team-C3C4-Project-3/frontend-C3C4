@@ -3,15 +3,9 @@ import SideBarMenu from "../components/sidebarmenu";
 import RecentRecs from "../components/recommendationPreview";
 import { recSummaryProps } from "../components/recommendationPreview";
 import "../css/app.css";
+import { PageProps } from "../utils/PageProps";
 
-interface HomeProps {
-  currentUser: number;
-  setCurrentUser: React.Dispatch<React.SetStateAction<number>>;
-  currentRec: number;
-  setCurrentRec: React.Dispatch<React.SetStateAction<number>>;
-}
-
-function Home(props: HomeProps): JSX.Element {
+function Home(props: PageProps): JSX.Element {
   const [displayRecs, setDisplayRecs] = useState<recSummaryProps[]>([]);
 
   useEffect(() => {
