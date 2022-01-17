@@ -5,15 +5,9 @@ import RecentRecs, {
 } from "../components/recommendationPreview";
 import SideBarMenu from "../components/sidebarmenu";
 import "../css/app.css";
+import { PageProps } from "../utils/PageProps";
 
-interface StudyListProps {
-  currentUser: number;
-  setCurrentUser: React.Dispatch<React.SetStateAction<number>>;
-  currentRec: number;
-  setCurrentRec: React.Dispatch<React.SetStateAction<number>>;
-}
-
-function StudyList(props: StudyListProps): JSX.Element {
+function StudyList(props: PageProps): JSX.Element {
   const [studyList, setStudyList] = useState<recSummaryProps[]>([]);
 
   useEffect(() => {
@@ -33,21 +27,21 @@ function StudyList(props: StudyListProps): JSX.Element {
     studyList === undefined
       ? []
       : studyList.map((item, index) => (
-          <RecentRecs
-            key={index}
-            title={item.title}
-            author={item.author}
-            type={item.type}
-            summary={item.summary}
-            link={item.link}
-            submit_time={item.submit_time}
-            id={item.id}
-            user_id={item.user_id}
-            name={item.name}
-            setCurrentRec={props.setCurrentRec}
-            currentUser={props.currentUser}
-          />
-        ));
+        <RecentRecs
+          key={index}
+          title={item.title}
+          author={item.author}
+          type={item.type}
+          summary={item.summary}
+          link={item.link}
+          submit_time={item.submit_time}
+          id={item.id}
+          user_id={item.user_id}
+          name={item.name}
+          setCurrentRec={props.setCurrentRec}
+          currentUser={props.currentUser}
+        />
+      ));
 
   return (
     <div className="body-grid">

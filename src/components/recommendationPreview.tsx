@@ -52,7 +52,13 @@ export default function RecentRecs(props: recSummaryProps): JSX.Element {
       <a href={props.link}>Go to resource</a>
       <p>{props.summary}</p>
       <p>Author of resource: {props.author}</p>
-      {location.pathname === "/" ? (
+      {location.pathname === "/studylist" ? (
+        <button
+          onClick={() => handleRemoveStudyList(props.currentUser, props.id)}
+        >
+          - Remove from study list
+        </button>
+      ) : (
         props.currentUser !== 0 && (
           <button
             onClick={() => handleAddStudyList(props.currentUser, props.id)}
@@ -60,12 +66,6 @@ export default function RecentRecs(props: recSummaryProps): JSX.Element {
             + Add to my study list
           </button>
         )
-      ) : (
-        <button
-          onClick={() => handleRemoveStudyList(props.currentUser, props.id)}
-        >
-          - Remove from study list
-        </button>
       )}
     </div>
   );
