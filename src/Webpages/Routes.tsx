@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Route, Routes, useParams } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useParams,
+} from "react-router-dom";
 import Home from "./Home";
 import StudyList from "./studylist";
 import Recommended from "./recommended";
@@ -66,7 +71,6 @@ function WebsiteRoutes(): JSX.Element {
 export default WebsiteRoutes;
 
 function TypeChild(props: PageProps): JSX.Element {
-
   const { type } = useParams();
 
   return (
@@ -79,5 +83,5 @@ function TypeChild(props: PageProps): JSX.Element {
       }}
       routeEndpoints={type ? type : ""}
     />
-  )
+  );
 }
