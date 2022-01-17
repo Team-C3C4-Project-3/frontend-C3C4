@@ -22,6 +22,8 @@ export default function Recommendation({
     tags: [],
   });
   const [inputComment, setInputComment] = useState<string>("");
+  const [isLike, setIsLike] = useState<boolean>(false);
+  const [isDislike, setIsDislike] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchRec = async () => {
@@ -48,10 +50,20 @@ export default function Recommendation({
 
   function handleLikeClicked() {
     PutData(`/like/${currentRec}`);
+    if (isLike === false) {
+      setIsLike(true);
+    } else {
+      setIsLike(false);
+    }
   }
 
   function handleDislikeClicked() {
     PutData(`/dislike/${currentRec}`);
+    if (isDislike === false) {
+      setIsDislike(true);
+    } else {
+      setIsDislike(false);
+    }
   }
 
   const comments = rec.comments.map((comment, idx) => (
