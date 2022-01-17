@@ -36,6 +36,24 @@ export default function Recommendation({
     fetchRec();
   }, [currentRec]);
 
+  async function PutData(putEndpoint: string) {
+    const response = await fetch(
+      `https://backend-c3c4.herokuapp.com${putEndpoint}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  }
+
+  function handleLikeClicked() {
+    PutData(`/like/${currentRec}`);
+  }
+
+  function handleDislikeClicked() {
+    PutData(`/dislike/${currentRec}`);
+  }
+
   const comments = rec.comments.map((comment, idx) => (
     <Comment
       key={idx}
@@ -76,7 +94,10 @@ export default function Recommendation({
           </p>
           <p>Summary: {rec.recInfo[0].summary}</p>
           <p>Tags: {rec.tags.map((obj) => obj.tag).join(", ")}</p>
-
+          <div>
+            <button onClick={handleLikeClicked}>👍</button>
+            <button onClick={handleDislikeClicked}>👎</button>
+          </div>
           {currentUser !== 0 && (
             <form className="form">
               <textarea
