@@ -24,6 +24,8 @@ export default function Recommendation({
   const [inputComment, setInputComment] = useState<string>("");
   const [isLike, setIsLike] = useState<boolean>(false);
   const [isDislike, setIsDislike] = useState<boolean>(false);
+  const [totalLikes, setTotalLikes] = useState<string>("");
+  const [totalDislikes, setTotalDislikes] = useState<string>("");
 
   useEffect(() => {
     const fetchRec = async () => {
@@ -38,24 +40,40 @@ export default function Recommendation({
     fetchRec();
   }, [currentRec]);
 
-  async function postLike(putEndpoint: string) {
-    await fetch(`https://backend-c3c4.herokuapp.com${putEndpoint}`, {
+  async function postLike(postEndpoint: string) {
+    await fetch(`https://backend-c3c4.herokuapp.com${postEndpoint}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
     });
   }
 
-  async function deleteLike(putEndpoint: string) {
-    await fetch(`https://backend-c3c4.herokuapp.com${putEndpoint}`, {
+  async function deleteLike(deleteEndpoint: string) {
+    await fetch(`https://backend-c3c4.herokuapp.com${deleteEndpoint}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     });
   }
   useEffect(() => {
     async function getTotal(endpoint: string) {
-      const res = await fetch(`https://backend-c3c4.herokuapp.com${endpoint}`);
-      const jsonBody = await res.json();
-      return jsonBody;
+      try {
+        const res = await fetch(
+          `https://backend-c3c4.herokuapp.com${endpoint}`
+        );
+        const jsonBody = await res.json();
+        if (endpoint.includes("dis")) {
+          setTotalDislikes(
+            jsonBody.opinion.length !== 0 ? jsonBody.opinion[0].total : "0"
+          );
+          console.log("totalDislikes: ", totalDislikes);
+        } else {
+          setTotalLikes(
+            jsonBody.opinion.length !== 0 ? jsonBody.opinion[0].total : "0"
+          );
+          console.log("totalLikes: ", totalLikes);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
     getTotal(`/total-likes/${currentRec}`);
     getTotal(`/total-dislikes/${currentRec}`);
@@ -63,21 +81,23 @@ export default function Recommendation({
 
   function handleLikeClicked() {
     if (isLike === false) {
-      postLike(`/like/${currentRec}`);
       setIsLike(true);
+      postLike(`/like/${currentUser}/${currentRec}`);
+      console.log("isLike? ", isLike);
     } else {
-      deleteLike(`/like/${currentRec}`);
       setIsLike(false);
+      deleteLike(`/like/${currentUser}/${currentRec}`);
+      console.log("isLike? ", isLike);
     }
   }
 
   function handleDislikeClicked() {
     if (isDislike === false) {
-      postLike(`/dislike/${currentRec}`);
       setIsDislike(true);
+      postLike(`/dislike/${currentUser}/${currentRec}`);
     } else {
-      deleteLike(`/dislike/${currentRec}`);
       setIsDislike(false);
+      deleteLike(`/dislike/${currentUser}/${currentRec}`);
     }
   }
 
