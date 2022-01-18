@@ -15,6 +15,7 @@ interface SidebarProps {
 export default function SideBarMenu(props: SidebarProps): JSX.Element {
   const [recTypes, setRecTypes] = useState<string[]>([]);
   const [users, setUsers] = useState<{ id: number; name: string }[]>([]);
+  const [searchInput, setSearchInput] = useState<string>("");
 
   useEffect(() => {
     UsersFetch().then((result) => {
@@ -65,6 +66,21 @@ export default function SideBarMenu(props: SidebarProps): JSX.Element {
           <span className="span">The Social Academy</span>
         </Link>
         <br id="inner" />
+        <form>
+          <input
+            className="search-bar"
+            placeholder="Search for a recommendation"
+            onChange={(e) => setSearchInput(e.target.value)}
+          ></input>
+          <Link
+            to={`/search/${searchInput.split(" ").join("+")}`}
+            className="sidebarbutton"
+            id="inner"
+            onClick={() => console.log(searchInput.split(" ").join("+"))}
+          >
+            <button type="submit">Search</button>
+          </Link>
+        </form>
         {props.currentUser === 0 && (
           <select
             className="login-dropdown"

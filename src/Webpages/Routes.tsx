@@ -11,6 +11,7 @@ import "../css/app.css";
 import { useState } from "react";
 import { PageProps } from "../utils/PageProps";
 import TypePage from "./TypePage";
+import SearchPage from "./SearchPage";
 
 function WebsiteRoutes(): JSX.Element {
   const [currentUser, setCurrentUser] = useState<number>(0);
@@ -63,6 +64,17 @@ function WebsiteRoutes(): JSX.Element {
             />
           }
         />
+        <Route
+          path="/search/:query"
+          element={
+            <SearchChild
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+              currentRec={currentRec}
+              setCurrentRec={setCurrentRec}
+            />
+          }
+        />
       </Routes>
     </Router>
   );
@@ -82,6 +94,22 @@ function TypeChild(props: PageProps): JSX.Element {
         setCurrentRec: props.setCurrentRec,
       }}
       routeEndpoints={type ? type : ""}
+    />
+  );
+}
+
+function SearchChild(props: PageProps): JSX.Element {
+  const { query } = useParams();
+
+  return (
+    <SearchPage
+      props={{
+        currentUser: props.currentUser,
+        setCurrentUser: props.setCurrentUser,
+        currentRec: props.currentRec,
+        setCurrentRec: props.setCurrentRec,
+      }}
+      routeEndpoints={query ? query : ""}
     />
   );
 }
