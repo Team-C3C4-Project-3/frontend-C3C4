@@ -53,40 +53,40 @@ export default function Recommendation({
       headers: { "Content-Type": "application/json" },
     });
   }
-  useEffect(() => {
-    async function getTotal(endpoint: string) {
-      try {
-        const res = await fetch(
-          `https://backend-c3c4.herokuapp.com${endpoint}`
+  async function getTotal(endpoint: string) {
+    try {
+      const res = await fetch(`https://backend-c3c4.herokuapp.com${endpoint}`);
+      const jsonBody = await res.json();
+      if (endpoint.includes("dis")) {
+        setTotalDislikes(
+          jsonBody.opinion.length !== 0 ? jsonBody.opinion[0].total : "0"
         );
-        const jsonBody = await res.json();
-        if (endpoint.includes("dis")) {
-          setTotalDislikes(
-            jsonBody.opinion.length !== 0 ? jsonBody.opinion[0].total : "0"
-          );
-          console.log("totalDislikes: ", totalDislikes);
-        } else {
-          setTotalLikes(
-            jsonBody.opinion.length !== 0 ? jsonBody.opinion[0].total : "0"
-          );
-          console.log("totalLikes: ", totalLikes);
-        }
-      } catch (error) {
-        console.log(error);
+        //console.log("totalDislikes: ", totalDislikes);
+      } else {
+        setTotalLikes(
+          jsonBody.opinion.length !== 0 ? jsonBody.opinion[0].total : "0"
+        );
+        console.log("totalLikes: ", totalLikes);
       }
+    } catch (error) {
+      console.log(error);
     }
+  }
+  useEffect(() => {
     getTotal(`/total-likes/${currentRec}`);
     getTotal(`/total-dislikes/${currentRec}`);
-  }, [isLike, isDislike, currentRec]);
+  }, [currentRec]);
 
-  function handleLikeClicked() {
+  async function handleLikeClicked() {
     if (isLike === false) {
       setIsLike(true);
-      postLike(`/like/${currentUser}/${currentRec}`);
+      await postLike(`/like/${currentUser}/${currentRec}`);
+      await getTotal(`/total-likes/${currentRec}`);
       console.log("isLike? ", isLike);
     } else {
       setIsLike(false);
-      deleteLike(`/like/${currentUser}/${currentRec}`);
+      await deleteLike(`/like/${currentUser}/${currentRec}`);
+      await getTotal(`/total-dislikes/${currentRec}`);
       console.log("isLike? ", isLike);
     }
   }
