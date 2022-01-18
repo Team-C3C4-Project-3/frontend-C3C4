@@ -22,6 +22,8 @@ export default function Recommendation({
     tags: [],
   });
   const [inputComment, setInputComment] = useState<string>("");
+  const [isLike, setIsLike] = useState<boolean>(false);
+  const [isDislike, setIsDislike] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchRec = async () => {
@@ -35,6 +37,49 @@ export default function Recommendation({
     };
     fetchRec();
   }, [currentRec]);
+
+  async function postLike(putEndpoint: string) {
+    await fetch(`https://backend-c3c4.herokuapp.com${putEndpoint}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  async function deleteLike(putEndpoint: string) {
+    await fetch(`https://backend-c3c4.herokuapp.com${putEndpoint}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+  useEffect(() => {
+    async function getTotal(endpoint: string) {
+      const res = await fetch(`https://backend-c3c4.herokuapp.com${endpoint}`);
+      const jsonBody = await res.json();
+      return jsonBody;
+    }
+    getTotal(`/total-likes/${currentRec}`);
+    getTotal(`/total-dislikes/${currentRec}`);
+  }, [isLike, isDislike, currentRec]);
+
+  function handleLikeClicked() {
+    if (isLike === false) {
+      postLike(`/like/${currentRec}`);
+      setIsLike(true);
+    } else {
+      deleteLike(`/like/${currentRec}`);
+      setIsLike(false);
+    }
+  }
+
+  function handleDislikeClicked() {
+    if (isDislike === false) {
+      postLike(`/dislike/${currentRec}`);
+      setIsDislike(true);
+    } else {
+      deleteLike(`/dislike/${currentRec}`);
+      setIsDislike(false);
+    }
+  }
 
   const comments = rec.comments.map((comment, idx) => (
     <Comment
@@ -76,7 +121,10 @@ export default function Recommendation({
           </p>
           <p>Summary: {rec.recInfo[0].summary}</p>
           <p>Tags: {rec.tags.map((obj) => obj.tag).join(", ")}</p>
-
+          <div>
+            <button onClick={handleLikeClicked}>👍</button>
+            <button onClick={handleDislikeClicked}>👎</button>
+          </div>
           {currentUser !== 0 && (
             <form className="form">
               <textarea
