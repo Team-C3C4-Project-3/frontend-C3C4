@@ -27,27 +27,29 @@ function StudyList(props: PageProps): JSX.Element {
     studyList === undefined
       ? []
       : studyList.map((item, index) => (
-          <RecentRecs
-            key={index}
-            title={item.title}
-            author={item.author}
-            type={item.type}
-            summary={item.summary}
-            link={item.link}
-            submit_time={item.submit_time}
-            id={item.id}
-            user_id={item.user_id}
-            name={item.name}
-            setCurrentRec={props.setCurrentRec}
-            currentUser={props.currentUser}
-          />
-        ));
+        <RecentRecs
+          key={index}
+          title={item.title}
+          author={item.author}
+          type={item.type}
+          summary={item.summary}
+          link={item.link}
+          submit_time={item.submit_time}
+          id={item.id}
+          user_id={item.user_id}
+          name={item.name}
+          setCurrentRec={props.setCurrentRec}
+          currentUser={props.currentUser}
+        />
+      ));
 
   return (
     <div className="body-grid">
       <SideBarMenu
         currentUser={props.currentUser}
         setCurrentUser={props.setCurrentUser}
+        selectedTags={props.selectedTags}
+        setSelectedTags={props.setSelectedTags}
       />
       <div className="study-list">
         <h1>StudyList</h1>
