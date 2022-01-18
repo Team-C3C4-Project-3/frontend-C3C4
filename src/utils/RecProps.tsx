@@ -15,6 +15,7 @@ interface recInfoProps {
   dislikes: number;
 }
 
+// id: number;
 // interface commentProps {
 //   user_id: number;
 //   rec_id: number;

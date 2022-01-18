@@ -4,7 +4,6 @@ import { RecProps } from "../utils/RecProps";
 import { Link } from "react-router-dom";
 import Comment from "./comment";
 import postData from "../utils/postData";
-import { getConstantValue } from "typescript";
 
 interface CurrentRecProps {
   currentRec: number;
@@ -40,34 +39,27 @@ export default function Recommendation({
   }, [currentRec]);
 
   async function postLike(putEndpoint: string) {
-    const response = await fetch(
-      `https://backend-c3c4.herokuapp.com${putEndpoint}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    await fetch(`https://backend-c3c4.herokuapp.com${putEndpoint}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    });
   }
 
   async function deleteLike(putEndpoint: string) {
-    const response = await fetch(
-      `https://backend-c3c4.herokuapp.com${putEndpoint}`,
-      {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    await fetch(`https://backend-c3c4.herokuapp.com${putEndpoint}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    });
   }
   useEffect(() => {
     async function getTotal(endpoint: string) {
       const res = await fetch(`https://backend-c3c4.herokuapp.com${endpoint}`);
       const jsonBody = await res.json();
       return jsonBody;
-      console.log(jsonBody);
     }
     getTotal(`/total-likes/${currentRec}`);
     getTotal(`/total-dislikes/${currentRec}`);
-  }, [isLike, isDislike]);
+  }, [isLike, isDislike, currentRec]);
 
   function handleLikeClicked() {
     if (isLike === false) {
