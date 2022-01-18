@@ -3,7 +3,7 @@ import {
   Route,
   Routes,
   useParams,
-  useNavigate
+  useNavigate,
 } from "react-router-dom";
 import Home from "./Home";
 import StudyList from "./studylist";
@@ -23,12 +23,10 @@ function WebsiteRoutes(): JSX.Element {
   useEffect(() => {
     const tagNav = () => {
       const history = useNavigate();
-      history(`/tags/${selectedTags.join('+')}`);
+      history(`/tags/${selectedTags.join("+")}`);
     };
     tagNav();
   }, [selectedTags]);
-
-
 
   return (
     <Router>
@@ -129,7 +127,7 @@ function TypeChild(props: PageProps): JSX.Element {
         currentRec: props.currentRec,
         setCurrentRec: props.setCurrentRec,
         selectedTags: props.selectedTags,
-        setSelectedTags: props.setSelectedTags
+        setSelectedTags: props.setSelectedTags,
       }}
       routeEndpoints={type ? type : ""}
     />
@@ -147,7 +145,7 @@ function SearchChild(props: PageProps): JSX.Element {
         currentRec: props.currentRec,
         setCurrentRec: props.setCurrentRec,
         selectedTags: props.selectedTags,
-        setSelectedTags: props.setSelectedTags
+        setSelectedTags: props.setSelectedTags,
       }}
       routeEndpoints={query ? query : ""}
     />
@@ -165,7 +163,7 @@ function TagsChild(props: PageProps): JSX.Element {
         currentRec: props.currentRec,
         setCurrentRec: props.setCurrentRec,
         selectedTags: props.selectedTags,
-        setSelectedTags: props.setSelectedTags
+        setSelectedTags: props.setSelectedTags,
       }}
       routeEndpoints={tags ? tags : ""}
     />

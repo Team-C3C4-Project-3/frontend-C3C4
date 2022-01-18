@@ -51,10 +51,11 @@ export default function SideBarMenu(props: SidebarProps): JSX.Element {
 
   function handleTag(element: string) {
     if (props.selectedTags.includes(element)) {
-      props.setSelectedTags(props.selectedTags.filter((item) => item !== element))
-    }
-    else {
-      props.setSelectedTags([...props.selectedTags, element])
+      props.setSelectedTags(
+        props.selectedTags.filter((item) => item !== element)
+      );
+    } else {
+      props.setSelectedTags([...props.selectedTags, element]);
     }
   }
 
@@ -76,8 +77,9 @@ export default function SideBarMenu(props: SidebarProps): JSX.Element {
   ));
 
   const tagCloud = tags.map((element: string, index: number) => (
-    <button onClick={() => handleTag(element)} key={index}>{separateCapitalise(element)}</button>
-
+    <button onClick={() => handleTag(element)} key={index}>
+      {separateCapitalise(element)}
+    </button>
   ));
 
   return (
