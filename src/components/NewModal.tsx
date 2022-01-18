@@ -42,7 +42,7 @@ export default function NewModal(props: { currentUser: number }): JSX.Element {
       }
     });
   }, []);
-  console.log(tagsOptions);
+  // console.log(tagsOptions);
 
   function openModal() {
     setIsOpen(true);
@@ -114,9 +114,9 @@ export default function NewModal(props: { currentUser: number }): JSX.Element {
     }
   }
 
-  useEffect(() => {
-    console.log(type);
-  }, [type]);
+  // useEffect(() => {
+  //   console.log(type);
+  // }, [type]);
 
   return (
     <>
