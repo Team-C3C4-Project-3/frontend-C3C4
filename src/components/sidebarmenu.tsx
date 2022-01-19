@@ -105,7 +105,22 @@ export default function SideBarMenu(props: SidebarProps): JSX.Element {
         </form>
         <br id="inner" />
         <br id="inner" />
+        {/* <form> */}
+        <h3>Tags</h3>
         {tagCloud}
+        {props.selectedTags.length !== 0 && (
+          <p>
+            Tags selected:{" "}
+            {props.selectedTags.map((el) => separateCapitalise(el)).join(", ")}
+          </p>
+        )}
+        {props.selectedTags.length !== 0 && (
+          <Link to={`/tags/${props.selectedTags.join("+")}`}>
+            <button>OK</button>
+          </Link>
+        )}
+
+        {/* </form> */}
         <br id="inner" />
         <br id="inner" />
         {props.currentUser === 0 && (

@@ -3,13 +3,12 @@ import {
   Route,
   Routes,
   useParams,
-  useNavigate,
 } from "react-router-dom";
 import Home from "./Home";
 import StudyList from "./studylist";
 import Recommended from "./recommended";
 import "../css/app.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PageProps } from "../utils/PageProps";
 import TypePage from "./TypePage";
 import SearchPage from "./SearchPage";
@@ -19,14 +18,6 @@ function WebsiteRoutes(): JSX.Element {
   const [currentUser, setCurrentUser] = useState<number>(0);
   const [currentRec, setCurrentRec] = useState<number>(0);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-
-  useEffect(() => {
-    const tagNav = () => {
-      const history = useNavigate();
-      history(`/tags/${selectedTags.join("+")}`);
-    };
-    tagNav();
-  }, [selectedTags]);
 
   return (
     <Router>
