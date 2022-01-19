@@ -24,6 +24,8 @@ export default function Recommendation({
   const [inputComment, setInputComment] = useState<string>("");
   const [isLike, setIsLike] = useState<boolean>(false);
   const [isDislike, setIsDislike] = useState<boolean>(false);
+  const [totalLikes, setTotalLikes] = useState<string>("");
+  const [totalDislikes, setTotalDislikes] = useState<string>("");
 
   useEffect(() => {
     const fetchRec = async () => {
@@ -38,47 +40,61 @@ export default function Recommendation({
     fetchRec();
   }, [currentRec]);
 
-  async function postLike(putEndpoint: string) {
-    await fetch(`https://backend-c3c4.herokuapp.com${putEndpoint}`, {
+  async function postLike(postEndpoint: string) {
+    await fetch(`https://backend-c3c4.herokuapp.com${postEndpoint}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
     });
   }
-
-  async function deleteLike(putEndpoint: string) {
-    await fetch(`https://backend-c3c4.herokuapp.com${putEndpoint}`, {
+  async function deleteLike(deleteEndpoint: string) {
+    await fetch(`https://backend-c3c4.herokuapp.com${deleteEndpoint}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     });
   }
-  useEffect(() => {
-    async function getTotal(endpoint: string) {
+  async function getTotal(endpoint: string) {
+    try {
       const res = await fetch(`https://backend-c3c4.herokuapp.com${endpoint}`);
       const jsonBody = await res.json();
-      return jsonBody;
-    }
-    getTotal(`/total-likes/${currentRec}`);
-    getTotal(`/total-dislikes/${currentRec}`);
-  }, [isLike, isDislike, currentRec]);
-
-  function handleLikeClicked() {
-    if (isLike === false) {
-      postLike(`/like/${currentRec}`);
-      setIsLike(true);
-    } else {
-      deleteLike(`/like/${currentRec}`);
-      setIsLike(false);
+      if (endpoint.includes("dis")) {
+        setTotalDislikes(
+          jsonBody.opinion.length !== 0 ? jsonBody.opinion[0].total : "0"
+        );
+      } else {
+        setTotalLikes(
+          jsonBody.opinion.length !== 0 ? jsonBody.opinion[0].total : "0"
+        );
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
+  useEffect(() => {
+    getTotal(`/total-likes/${currentRec}`);
+    getTotal(`/total-dislikes/${currentRec}`);
+    // eslint-disable-next-line
+  }, [currentRec]);
 
-  function handleDislikeClicked() {
-    if (isDislike === false) {
-      postLike(`/dislike/${currentRec}`);
-      setIsDislike(true);
+  async function handleLikeClicked() {
+    if (isLike === false) {
+      setIsLike(true);
+      await postLike(`/like/${currentUser}/${currentRec}`);
     } else {
-      deleteLike(`/dislike/${currentRec}`);
-      setIsDislike(false);
+      setIsLike(false);
+      await deleteLike(`/like/${currentUser}/${currentRec}`);
     }
+    await getTotal(`/total-likes/${currentRec}`);
+  }
+
+  async function handleDislikeClicked() {
+    if (isDislike === false) {
+      setIsDislike(true);
+      await postLike(`/dislike/${currentUser}/${currentRec}`);
+    } else {
+      setIsDislike(false);
+      await deleteLike(`/dislike/${currentUser}/${currentRec}`);
+    }
+    await getTotal(`/total-dislikes/${currentRec}`);
   }
 
   const comments = rec.comments.map((comment, idx) => (
@@ -122,9 +138,15 @@ export default function Recommendation({
           <p>Summary: {rec.recInfo[0].summary}</p>
           <p>Tags: {rec.tags.map((obj) => obj.tag).join(", ")}</p>
           <div>
-            <button onClick={handleLikeClicked}>👍</button>
-            <button onClick={handleDislikeClicked}>👎</button>
+            <h5>Likes: {totalLikes}</h5>
+            <h5>Dislikes: {totalDislikes}</h5>
           </div>
+          {currentUser !== 0 && (
+            <div>
+              <button onClick={handleLikeClicked}>👍</button>
+              <button onClick={handleDislikeClicked}>👎</button>
+            </div>
+          )}
           {currentUser !== 0 && (
             <form className="form">
               <textarea
