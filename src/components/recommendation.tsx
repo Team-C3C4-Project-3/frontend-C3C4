@@ -46,59 +46,60 @@ export default function Recommendation({
       headers: { "Content-Type": "application/json" },
     });
   }
-
   async function deleteLike(deleteEndpoint: string) {
     await fetch(`https://backend-c3c4.herokuapp.com${deleteEndpoint}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     });
   }
-  useEffect(() => {
-    async function getTotal(endpoint: string) {
-      try {
-        const res = await fetch(
-          `https://backend-c3c4.herokuapp.com${endpoint}`
+  async function getTotal(endpoint: string) {
+    try {
+      const res = await fetch(`https://backend-c3c4.herokuapp.com${endpoint}`);
+      const jsonBody = await res.json();
+      if (endpoint.includes("dis")) {
+        setTotalDislikes(
+          jsonBody.opinion.length !== 0 ? jsonBody.opinion[0].total : "0"
         );
-        const jsonBody = await res.json();
-        if (endpoint.includes("dis")) {
-          setTotalDislikes(
-            jsonBody.opinion.length !== 0 ? jsonBody.opinion[0].total : "0"
-          );
-          console.log("totalDislikes: ", totalDislikes);
-        } else {
-          setTotalLikes(
-            jsonBody.opinion.length !== 0 ? jsonBody.opinion[0].total : "0"
-          );
-          console.log("totalLikes: ", totalLikes);
-        }
-      } catch (error) {
-        console.log(error);
+      } else {
+        setTotalLikes(
+          jsonBody.opinion.length !== 0 ? jsonBody.opinion[0].total : "0"
+        );
       }
-    }
-    getTotal(`/total-likes/${currentRec}`);
-    getTotal(`/total-dislikes/${currentRec}`);
-  }, [isLike, isDislike, currentRec]);
-
-  function handleLikeClicked() {
-    if (isLike === false) {
-      setIsLike(true);
-      postLike(`/like/${currentUser}/${currentRec}`);
-      console.log("isLike? ", isLike);
-    } else {
-      setIsLike(false);
-      deleteLike(`/like/${currentUser}/${currentRec}`);
-      console.log("isLike? ", isLike);
+    } catch (error) {
+      console.log(error);
     }
   }
+  useEffect(() => {
+    getTotal(`/total-likes/${currentRec}`);
+    getTotal(`/total-dislikes/${currentRec}`);
+    // eslint-disable-next-line
+  }, [currentRec]);
 
-  function handleDislikeClicked() {
+  // useEffect(() => {
+  //   setIsLike(false)
+  //   setIsDislike(false)
+  // }, [currentUser])
+
+  async function handleLikeClicked() {
+    if (isLike === false) {
+      setIsLike(true);
+      await postLike(`/like/${currentUser}/${currentRec}`);
+    } else {
+      setIsLike(false);
+      await deleteLike(`/like/${currentUser}/${currentRec}`);
+    }
+    await getTotal(`/total-likes/${currentRec}`);
+  }
+
+  async function handleDislikeClicked() {
     if (isDislike === false) {
       setIsDislike(true);
-      postLike(`/dislike/${currentUser}/${currentRec}`);
+      await postLike(`/dislike/${currentUser}/${currentRec}`);
     } else {
       setIsDislike(false);
-      deleteLike(`/dislike/${currentUser}/${currentRec}`);
+      await deleteLike(`/dislike/${currentUser}/${currentRec}`);
     }
+    await getTotal(`/total-dislikes/${currentRec}`);
   }
 
   const comments = rec.comments.map((comment, idx) => (
@@ -142,9 +143,15 @@ export default function Recommendation({
           <p>Summary: {rec.recInfo[0].summary}</p>
           <p>Tags: {rec.tags.map((obj) => obj.tag).join(", ")}</p>
           <div>
-            <button onClick={handleLikeClicked}>👍</button>
-            <button onClick={handleDislikeClicked}>👎</button>
+            <h5>Likes: {totalLikes}</h5>
+            <h5>Dislikes: {totalDislikes}</h5>
           </div>
+          {currentUser !== 0 && (
+            <div>
+              <button onClick={handleLikeClicked}>👍</button>
+              <button onClick={handleDislikeClicked}>👎</button>
+            </div>
+          )}
           {currentUser !== 0 && (
             <form className="form">
               <textarea
