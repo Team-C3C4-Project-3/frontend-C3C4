@@ -75,11 +75,6 @@ export default function Recommendation({
     // eslint-disable-next-line
   }, [currentRec]);
 
-  // useEffect(() => {
-  //   setIsLike(false)
-  //   setIsDislike(false)
-  // }, [currentUser])
-
   async function handleLikeClicked() {
     if (isLike === false) {
       setIsLike(true);
