@@ -48,6 +48,8 @@ function StudyList(props: PageProps): JSX.Element {
       <SideBarMenu
         currentUser={props.currentUser}
         setCurrentUser={props.setCurrentUser}
+        selectedTags={props.selectedTags}
+        setSelectedTags={props.setSelectedTags}
       />
       <div className="study-list">
         <h1>StudyList</h1>

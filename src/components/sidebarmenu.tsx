@@ -6,21 +6,35 @@ import NewModal from "./NewModal";
 import { useState, useEffect } from "react";
 import separateCapitalise from "../utils/separateCapitalise";
 import { Link } from "react-router-dom";
+import fetchTags from "../utils/TagsFetch";
 
 interface SidebarProps {
   currentUser: number;
   setCurrentUser: React.Dispatch<React.SetStateAction<number>>;
+  selectedTags: string[];
+  setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export default function SideBarMenu(props: SidebarProps): JSX.Element {
   const [recTypes, setRecTypes] = useState<string[]>([]);
   const [users, setUsers] = useState<{ id: number; name: string }[]>([]);
   const [searchInput, setSearchInput] = useState<string>("");
+  const [tags, setTags] = useState<string[]>([]);
 
   useEffect(() => {
     UsersFetch().then((result) => {
       if (result) {
         setUsers(result);
+      }
+    });
+    fetchTags().then((result) => {
+      if (result) {
+        setTags(result);
+      }
+    });
+    TypeFetch().then((result) => {
+      if (result) {
+        setRecTypes(result);
       }
     });
   }, []);
@@ -35,19 +49,22 @@ export default function SideBarMenu(props: SidebarProps): JSX.Element {
     return name;
   }
 
+  function handleTag(element: string) {
+    if (props.selectedTags.includes(element)) {
+      props.setSelectedTags(
+        props.selectedTags.filter((item) => item !== element)
+      );
+    } else {
+      props.setSelectedTags([...props.selectedTags, element]);
+    }
+  }
+
   const usersList = users.map((element, index) => (
     <option value={element.id} key={index}>
       {element.name}
     </option>
   ));
 
-  useEffect(() => {
-    TypeFetch().then((result) => {
-      if (result) {
-        setRecTypes(result);
-      }
-    });
-  }, []);
   const types = recTypes.map((element: string, index: number) => (
     <Link
       to={`/type/${element}`}
@@ -57,6 +74,12 @@ export default function SideBarMenu(props: SidebarProps): JSX.Element {
     >
       <span className="span">{separateCapitalise(element)}</span>
     </Link>
+  ));
+
+  const tagCloud = tags.map((element: string, index: number) => (
+    <button onClick={() => handleTag(element)} key={index}>
+      {separateCapitalise(element)}
+    </button>
   ));
 
   return (
@@ -74,13 +97,32 @@ export default function SideBarMenu(props: SidebarProps): JSX.Element {
           ></input>
           <Link
             to={`/search/${searchInput.split(" ").join("+")}`}
-            className="sidebarbutton"
             id="inner"
             onClick={() => console.log(searchInput.split(" ").join("+"))}
           >
             <button type="submit">Search</button>
           </Link>
         </form>
+        <br id="inner" />
+        <br id="inner" />
+        {/* <form> */}
+        <h3>Tags</h3>
+        {tagCloud}
+        {props.selectedTags.length !== 0 && (
+          <p>
+            Tags selected:{" "}
+            {props.selectedTags.map((el) => separateCapitalise(el)).join(", ")}
+          </p>
+        )}
+        {props.selectedTags.length !== 0 && (
+          <Link to={`/tags/${props.selectedTags.join("+")}`}>
+            <button>OK</button>
+          </Link>
+        )}
+
+        {/* </form> */}
+        <br id="inner" />
+        <br id="inner" />
         {props.currentUser === 0 && (
           <select
             className="login-dropdown"
@@ -100,7 +142,6 @@ export default function SideBarMenu(props: SidebarProps): JSX.Element {
         {props.currentUser !== 0 && (
           <div className="logged-in">
             <p>You are logged in as {getUserName(props.currentUser)}</p>
-            {/* <p>{}</p> */}
             <Link className="sidebarbutton" id="inner" to="#">
               <span
                 className="span"

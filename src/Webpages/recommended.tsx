@@ -9,6 +9,8 @@ function Recommended(props: PageProps): JSX.Element {
       <SideBarMenu
         currentUser={props.currentUser}
         setCurrentUser={props.setCurrentUser}
+        selectedTags={props.selectedTags}
+        setSelectedTags={props.setSelectedTags}
       />
 
       <Recommendation

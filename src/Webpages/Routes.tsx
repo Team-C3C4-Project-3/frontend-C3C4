@@ -12,10 +12,12 @@ import { useState } from "react";
 import { PageProps } from "../utils/PageProps";
 import TypePage from "./TypePage";
 import SearchPage from "./SearchPage";
+import TagsPage from "./TagsPage";
 
 function WebsiteRoutes(): JSX.Element {
   const [currentUser, setCurrentUser] = useState<number>(0);
   const [currentRec, setCurrentRec] = useState<number>(0);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   return (
     <Router>
@@ -28,6 +30,8 @@ function WebsiteRoutes(): JSX.Element {
               setCurrentUser={setCurrentUser}
               currentRec={currentRec}
               setCurrentRec={setCurrentRec}
+              selectedTags={selectedTags}
+              setSelectedTags={setSelectedTags}
             />
           }
         />
@@ -39,6 +43,8 @@ function WebsiteRoutes(): JSX.Element {
               setCurrentUser={setCurrentUser}
               currentRec={currentRec}
               setCurrentRec={setCurrentRec}
+              selectedTags={selectedTags}
+              setSelectedTags={setSelectedTags}
             />
           }
         />
@@ -50,6 +56,8 @@ function WebsiteRoutes(): JSX.Element {
               setCurrentUser={setCurrentUser}
               currentRec={currentRec}
               setCurrentRec={setCurrentRec}
+              selectedTags={selectedTags}
+              setSelectedTags={setSelectedTags}
             />
           }
         />
@@ -61,6 +69,8 @@ function WebsiteRoutes(): JSX.Element {
               setCurrentUser={setCurrentUser}
               currentRec={currentRec}
               setCurrentRec={setCurrentRec}
+              selectedTags={selectedTags}
+              setSelectedTags={setSelectedTags}
             />
           }
         />
@@ -72,6 +82,21 @@ function WebsiteRoutes(): JSX.Element {
               setCurrentUser={setCurrentUser}
               currentRec={currentRec}
               setCurrentRec={setCurrentRec}
+              selectedTags={selectedTags}
+              setSelectedTags={setSelectedTags}
+            />
+          }
+        />
+        <Route
+          path="/tags/:tags"
+          element={
+            <TagsChild
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+              currentRec={currentRec}
+              setCurrentRec={setCurrentRec}
+              selectedTags={selectedTags}
+              setSelectedTags={setSelectedTags}
             />
           }
         />
@@ -92,6 +117,8 @@ function TypeChild(props: PageProps): JSX.Element {
         setCurrentUser: props.setCurrentUser,
         currentRec: props.currentRec,
         setCurrentRec: props.setCurrentRec,
+        selectedTags: props.selectedTags,
+        setSelectedTags: props.setSelectedTags,
       }}
       routeEndpoints={type ? type : ""}
     />
@@ -108,8 +135,28 @@ function SearchChild(props: PageProps): JSX.Element {
         setCurrentUser: props.setCurrentUser,
         currentRec: props.currentRec,
         setCurrentRec: props.setCurrentRec,
+        selectedTags: props.selectedTags,
+        setSelectedTags: props.setSelectedTags,
       }}
       routeEndpoints={query ? query : ""}
+    />
+  );
+}
+
+function TagsChild(props: PageProps): JSX.Element {
+  const { tags } = useParams();
+
+  return (
+    <TagsPage
+      props={{
+        currentUser: props.currentUser,
+        setCurrentUser: props.setCurrentUser,
+        currentRec: props.currentRec,
+        setCurrentRec: props.setCurrentRec,
+        selectedTags: props.selectedTags,
+        setSelectedTags: props.setSelectedTags,
+      }}
+      routeEndpoints={tags ? tags : ""}
     />
   );
 }

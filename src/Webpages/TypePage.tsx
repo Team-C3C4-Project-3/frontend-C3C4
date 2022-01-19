@@ -48,6 +48,8 @@ export default function TypePage(props: {
       <SideBarMenu
         currentUser={props.props.currentUser}
         setCurrentUser={props.props.setCurrentUser}
+        selectedTags={props.props.selectedTags}
+        setSelectedTags={props.props.setSelectedTags}
       />
       <div className="content">
         <h1>{separateCapitalise(props.routeEndpoints)} Recs</h1>

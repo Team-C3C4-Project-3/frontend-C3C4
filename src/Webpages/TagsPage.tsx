@@ -1,34 +1,32 @@
 import { useEffect, useState } from "react";
-import { PageProps } from "../utils/PageProps";
 import RecentRecs, {
   recSummaryProps,
 } from "../components/recommendationPreview";
 import SideBarMenu from "../components/sidebarmenu";
-// import { isConditionalExpression } from "typescript";
-// import separateCapitalise from "../utils/separateCapitalise";
+import { PageProps } from "../utils/PageProps";
+import separateCapitalise from "../utils/separateCapitalise";
 
-export default function SearchPage(props: {
+export default function TagsPage(props: {
   props: PageProps;
   routeEndpoints: string;
 }): JSX.Element {
-  const [searchRecs, setSearchRec] = useState<recSummaryProps[]>([]);
+  const [recTags, setRecTags] = useState<recSummaryProps[]>([]);
 
   useEffect(() => {
     const fetchTypeRec = async () => {
       const response = await fetch(
-        `https://backend-c3c4.herokuapp.com/search/${props.routeEndpoints}`
-        // `https://backend-c3c4.herokuapp.com/type/podcast`
+        `https://backend-c3c4.herokuapp.com/tags/${props.routeEndpoints}`
       );
       const jsonBody = await response.json();
-      setSearchRec(jsonBody.data);
+      setRecTags(jsonBody.data);
     };
     fetchTypeRec();
   }, [props.routeEndpoints]);
 
   const recs =
-    searchRecs === undefined
+    recTags === undefined
       ? []
-      : searchRecs.map((rec, index) => (
+      : recTags.map((rec, index) => (
           <RecentRecs
             key={index}
             id={rec.id}
@@ -45,7 +43,6 @@ export default function SearchPage(props: {
           />
         ));
 
-  console.log(props.routeEndpoints);
   return (
     <div className="body-grid">
       <SideBarMenu
@@ -55,7 +52,7 @@ export default function SearchPage(props: {
         setSelectedTags={props.props.setSelectedTags}
       />
       <div className="content">
-        <h1>Search Results for: {props.routeEndpoints} Recs</h1>
+        <h1>Recs {separateCapitalise(props.routeEndpoints)} Tag</h1>
         {recs.length !== 0 ? (
           <div>{recs}</div>
         ) : (

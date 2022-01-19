@@ -42,6 +42,8 @@ function Home(props: PageProps): JSX.Element {
       <SideBarMenu
         currentUser={props.currentUser}
         setCurrentUser={props.setCurrentUser}
+        selectedTags={props.selectedTags}
+        setSelectedTags={props.setSelectedTags}
       />
       <div className="content">
         <h1>C3C4 Recommendations</h1>
