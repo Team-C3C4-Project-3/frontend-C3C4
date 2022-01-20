@@ -212,7 +212,7 @@ export default function CreateNewRec(props: {
             <option value=""> -- select an option -- </option>
             {tagDropdownList}
           </select>
-          <p>
+          <p id="selectedTagList">
             {tags.map((element) => (
               <li key={element} value={element}>
                 {element}
@@ -225,7 +225,10 @@ export default function CreateNewRec(props: {
               </li>
             ))}
           </p>
-          <button type="submit"> Submit</button>
+          <button id="submitnewrec" type="submit">
+            {" "}
+            Submit
+          </button>
         </form>
       </Modal>
     </>
