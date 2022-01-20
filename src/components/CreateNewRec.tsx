@@ -161,6 +161,7 @@ export default function CreateNewRec(props: {
           <fieldset id="recommendedCheckboxes">
             <label className="boxes">
               <input
+                id="recommended"
                 type="checkbox"
                 checked={isChecked("recommended")}
                 onChange={() => handleCheckbox(0)}
@@ -170,6 +171,7 @@ export default function CreateNewRec(props: {
             </label>
             <label className="boxes">
               <input
+                id="not-recommended"
                 type="checkbox"
                 checked={isChecked("not-recommended")}
                 onChange={() => handleCheckbox(1)}
@@ -179,6 +181,7 @@ export default function CreateNewRec(props: {
             </label>
             <label className="boxes">
               <input
+                id="looks-interesting"
                 type="checkbox"
                 checked={isChecked("looks-interesting")}
                 onChange={() => handleCheckbox(2)}
@@ -212,9 +215,9 @@ export default function CreateNewRec(props: {
             <option value=""> -- select an option -- </option>
             {tagDropdownList}
           </select>
-          <p id="selectedTagList">
+          <ul id="selectedTagList">
             {tags.map((element) => (
-              <li key={element} value={element}>
+              <li id={element} key={element} value={element}>
                 {element}
                 {"    "}
                 <button
@@ -224,7 +227,7 @@ export default function CreateNewRec(props: {
                 </button>
               </li>
             ))}
-          </p>
+          </ul>
           <button id="submitnewrec" type="submit">
             {" "}
             Submit
