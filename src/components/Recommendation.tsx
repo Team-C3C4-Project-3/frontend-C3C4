@@ -4,6 +4,7 @@ import { RecProps } from "../utils/Props/RecProps";
 import { Link } from "react-router-dom";
 import Comment from "./Comment";
 import postData from "../utils/Helper-Functions/postData";
+import { handleAddStudyList } from "./RecPreview";
 
 interface CurrentRecProps {
   currentRec: number;
@@ -120,11 +121,11 @@ export default function Recommendation({
   return (
     <div>
       {rec.recInfo.length === 0 ? (
-        <div>
+        <div className="return-to-home-page">
           <Link to="/">Return to Home page</Link>
         </div>
       ) : (
-        <div>
+        <div className="recommendation-page">
           <h1>{rec.recInfo[0].title}</h1>
           <a href={rec.recInfo[0].link}>Go to resource</a>
           <h3>By: {rec.recInfo[0].author}</h3>
@@ -137,6 +138,14 @@ export default function Recommendation({
           </p>
           <p>Summary: {rec.recInfo[0].summary}</p>
           <p>Tags: {rec.tags.map((obj) => obj.tag).join(", ")}</p>
+          {currentUser !== 0 && (
+            <button
+              className="rec-preview-add-button"
+              onClick={() => handleAddStudyList(currentUser, currentRec)}
+            >
+              + Add to my study list
+            </button>
+          )}
           <div>
             <h5>Likes: {totalLikes}</h5>
             <h5>Dislikes: {totalDislikes}</h5>

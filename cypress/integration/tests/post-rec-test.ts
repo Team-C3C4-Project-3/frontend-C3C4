@@ -1,63 +1,63 @@
 /// <reference types="cypress" />
 
-describe('post-new-rec', () => {
+describe("post-new-rec", () => {
+  beforeEach(() => {
+    cy.visit("https://frontend-c3c4.netlify.app/");
+  });
 
-    beforeEach(() => {
-      cy.visit('https://frontend-c3c4.netlify.app/')
-    })
-  
-  
-  it('displays create new rec button', () => {
-    cy.get('#newrec .span').should('have.text', '+ Create New Recommendation')
-  })
+  it("displays create new rec button", () => {
+    cy.get("#newrec .span").should("have.text", "+ Create New Recommendation");
+  });
 
-  it('Modal appears when button is clicked', () => {
-    cy.get('.login-dropdown').select(3)
+  it("Modal appears when button is clicked", () => {
+    cy.get(".login-dropdown").select(3);
 
+    cy.get("#newrec", { timeout: 20000 })
+      // .find('#mymodal')
+      .click()
+      .get("#mymodal");
 
-    cy.get('#newrec', { timeout: 20000 })
-        // .find('#mymodal')
-        .click()
-        .get('#mymodal')
+    cy.get(".nav .title").should("have.text", "Create New Recommendation");
 
-        cy.get('.nav .title').should('have.text', 'Create New Recommendation')
+    cy.get("#titleinput")
+      .type("Click test in Cypress")
+      .should("have.value", "Click test in Cypress");
 
+    cy.get("#linkInput")
+      .type("https://www.cypress.io/blog/2019/01/22/when-can-the-test-click/")
+      .should(
+        "have.value",
+        "https://www.cypress.io/blog/2019/01/22/when-can-the-test-click/"
+      );
 
-        cy.get('#titleinput')
-            .type('Click test in Cypress').should('have.value', 'Click test in Cypress')
-        
-        cy.get('#linkInput')
-        .type('https://www.cypress.io/blog/2019/01/22/when-can-the-test-click/').should('have.value', 'https://www.cypress.io/blog/2019/01/22/when-can-the-test-click/')
+    cy.get("#authorInput")
+      .type("Gleb Bahmutov")
+      .should("have.value", "Gleb Bahmutov");
 
-        cy.get('#authorInput')
-            .type('Gleb Bahmutov').should('have.value', 'Gleb Bahmutov')
+    cy.get("#typeInput").select("article").should("have.value", "article");
 
-        cy.get('#typeInput').select('article').should('have.value', 'article')
+    cy.get("#recommended").check("recommended"); //.should('have.value', 'recommended')
 
-        cy.get('#recommended').check('recommended')//.should('have.value', 'recommended')
+    cy.get("#reasonInput")
+      .type("I can now test clicks in Cypress")
+      .should("have.value", "I can now test clicks in Cypress");
 
-        cy.get('#reasonInput')
-            .type('I can now test clicks in Cypress').should('have.value', 'I can now test clicks in Cypress')
+    cy.get("#summaryInput")
+      .type("He explains how to test clicks in Cypress")
+      .should("have.value", "He explains how to test clicks in Cypress");
 
-        cy.get('#summaryInput')
-            .type('He explains how to test clicks in Cypress').should('have.value', 'He explains how to test clicks in Cypress')
+    cy.get("#tagInput")
+      .select("API") //.should('have.value', 'article')
+      .select("HTML");
 
-        cy.get('#tagInput').select('API')//.should('have.value', 'article')
-            .select('HTML')
+    cy.get("#selectedTagList #HTML").get("#selectedTagList #API");
 
-        cy.get('#selectedTagList #HTML')
-            .get('#selectedTagList #API')
+    cy.get("#submitnewrec", { timeout: 20000 }).click();
 
-        cy.get('#submitnewrec', { timeout: 20000 })
-            .click()
+    cy.get(".rec-preview .rec-preview-title")
+      .eq(0)
+      .should("have.text", "Click test in Cypress");
+  });
+});
 
-        cy.get('.rec-preview')
-
-  })
-
-
-  })
-
-
-  
-  //displays 10 reccomendation on the homepage by default
+//displays 10 reccomendation on the homepage by default
