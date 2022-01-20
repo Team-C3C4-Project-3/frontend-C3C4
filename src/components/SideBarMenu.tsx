@@ -1,7 +1,7 @@
 import "../css/SideBarMenu.css";
 import UsersFetch from "../utils/Helper-Functions/UsersFetch";
 import TypeFetch from "../utils/Helper-Functions/TypeFetch";
-import NewModal from "./NewModal";
+import CreateNewRec from "./CreateNewRec";
 import { useState, useEffect } from "react";
 import separateCapitalise from "../utils/Helper-Functions/separateCapitalise";
 import { Link } from "react-router-dom";
@@ -152,7 +152,7 @@ export default function SideBarMenu(props: SidebarProps): JSX.Element {
         )}
         <br id="inner" />
         <br id="inner" />
-        <NewModal currentUser={props.currentUser} />
+        <CreateNewRec currentUser={props.currentUser} />
         <br id="inner" />
         <br id="inner" />
         <br id="inner" />
