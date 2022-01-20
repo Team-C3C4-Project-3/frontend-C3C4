@@ -174,7 +174,6 @@ export default function CreateNewRec(props: {
                 checked={isChecked("not-recommended")}
                 onChange={() => handleCheckbox(1)}
                 value="not-recommended"
-
               />
               {separateCapitalise(recommendText[1])}
             </label>
@@ -184,7 +183,6 @@ export default function CreateNewRec(props: {
                 checked={isChecked("looks-interesting")}
                 onChange={() => handleCheckbox(2)}
                 value="looks-interesting"
-
               />
               {separateCapitalise(recommendText[2])}
             </label>
