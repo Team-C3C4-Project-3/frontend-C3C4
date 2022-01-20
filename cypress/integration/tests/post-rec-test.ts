@@ -12,6 +12,9 @@ describe('post-new-rec', () => {
   })
 
   it('Modal appears when button is clicked', () => {
+    cy.get('.login-dropdown').select(3)
+
+
     cy.get('#newrec', { timeout: 20000 })
         // .find('#mymodal')
         .click()
@@ -31,7 +34,7 @@ describe('post-new-rec', () => {
 
         cy.get('#typeInput').select('article').should('have.value', 'article')
 
-        cy.get('#recommendedCheckboxes').check('recommended').should('have.value', 'recommended')
+        cy.get('#recommended').check('recommended')//.should('have.value', 'recommended')
 
         cy.get('#reasonInput')
             .type('I can now test clicks in Cypress').should('have.value', 'I can now test clicks in Cypress')
@@ -41,6 +44,14 @@ describe('post-new-rec', () => {
 
         cy.get('#tagInput').select('API')//.should('have.value', 'article')
             .select('HTML')
+
+        cy.get('#selectedTagList #HTML')
+            .get('#selectedTagList #API')
+
+        cy.get('#submitnewrec', { timeout: 20000 })
+            .click()
+
+        cy.get('.rec-preview')
 
   })
 
