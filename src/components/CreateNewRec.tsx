@@ -158,12 +158,13 @@ export default function CreateNewRec(props: {
           >
             {typeOptions}
           </select>
-          <fieldset>
+          <fieldset id="recommendedCheckboxes">
             <label className="boxes">
               <input
                 type="checkbox"
                 checked={isChecked("recommended")}
                 onChange={() => handleCheckbox(0)}
+                value="recommended"
               />
               {separateCapitalise(recommendText[0])}
             </label>
@@ -172,6 +173,8 @@ export default function CreateNewRec(props: {
                 type="checkbox"
                 checked={isChecked("not-recommended")}
                 onChange={() => handleCheckbox(1)}
+                value="not-recommended"
+
               />
               {separateCapitalise(recommendText[1])}
             </label>
@@ -180,6 +183,8 @@ export default function CreateNewRec(props: {
                 type="checkbox"
                 checked={isChecked("looks-interesting")}
                 onChange={() => handleCheckbox(2)}
+                value="looks-interesting"
+
               />
               {separateCapitalise(recommendText[2])}
             </label>
