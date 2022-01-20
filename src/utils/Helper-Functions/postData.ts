@@ -1,15 +1,13 @@
-import httpResponsesProps from "../utils/httpResponsesProps";
-import { NewRecProps } from "./NewRecProps";
-import { PostStudyListProps } from "./StudyListProps";
-import NewCommentProps from "./NewCommentProps";
+import httpResponsesProps from "../Props/httpResponsesProps";
+import { NewRecProps } from "../Props/NewRecProps";
+import { PostStudyListProps } from "../Props/StudyListProps";
+import NewCommentProps from "../Props/NewCommentProps";
 
 export default async function postData(
   postEndpoint: string,
   info: NewRecProps | PostStudyListProps | NewCommentProps
 ): Promise<httpResponsesProps | void> {
-  //postType: newRec, comment, studyList
   try {
-    // if (postEndpoint )
     const response = await fetch(
       `https://backend-c3c4.herokuapp.com${postEndpoint}`,
       {

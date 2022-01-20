@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import RecentRecs, {
-  recSummaryProps,
-} from "../components/recommendationPreview";
-import SideBarMenu from "../components/sidebarmenu";
-import { PageProps } from "../utils/PageProps";
-import separateCapitalise from "../utils/separateCapitalise";
+import RecPreview, { recSummaryProps } from "../components/RecPreview";
+import SideBarMenu from "../components/SideBarMenu";
+import { PageProps } from "../utils/Props/PageProps";
+import separateCapitalise from "../utils/Helper-Functions/separateCapitalise";
 
 export default function TagsPage(props: {
   props: PageProps;
@@ -27,7 +25,7 @@ export default function TagsPage(props: {
     recTags === undefined
       ? []
       : recTags.map((rec, index) => (
-          <RecentRecs
+          <RecPreview
             key={index}
             id={rec.id}
             title={rec.title}

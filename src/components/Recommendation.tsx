@@ -1,9 +1,9 @@
-import "../css/recPreview.css";
+import "../css/RecPreview.css";
 import { useEffect, useState } from "react";
-import { RecProps } from "../utils/RecProps";
+import { RecProps } from "../utils/Props/RecProps";
 import { Link } from "react-router-dom";
-import Comment from "./comment";
-import postData from "../utils/postData";
+import Comment from "./Comment";
+import postData from "../utils/Helper-Functions/postData";
 
 interface CurrentRecProps {
   currentRec: number;

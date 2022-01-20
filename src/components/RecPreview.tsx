@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
-import "../css/recPreview.css";
-import postData from "../utils/postData";
+import "../css/RecPreview.css";
+import postData from "../utils/Helper-Functions/postData";
 
 export interface recSummaryProps {
   id: number;
@@ -16,7 +16,7 @@ export interface recSummaryProps {
   currentUser: number;
 }
 
-export default function RecentRecs(props: recSummaryProps): JSX.Element {
+export default function RecPreview(props: recSummaryProps): JSX.Element {
   const handleAddStudyList = async (user_id: number, rec_id: number) => {
     postData(`/study-list/${user_id}/${rec_id}`, {
       user_id,

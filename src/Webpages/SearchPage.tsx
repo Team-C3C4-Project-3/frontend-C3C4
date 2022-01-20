@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
-import { PageProps } from "../utils/PageProps";
-import RecentRecs, {
-  recSummaryProps,
-} from "../components/recommendationPreview";
-import SideBarMenu from "../components/sidebarmenu";
-// import { isConditionalExpression } from "typescript";
-// import separateCapitalise from "../utils/separateCapitalise";
+import { PageProps } from "../utils/Props/PageProps";
+import RecPreview, { recSummaryProps } from "../components/RecPreview";
+import SideBarMenu from "../components/SideBarMenu";
 
 export default function SearchPage(props: {
   props: PageProps;
@@ -17,7 +13,6 @@ export default function SearchPage(props: {
     const fetchTypeRec = async () => {
       const response = await fetch(
         `https://backend-c3c4.herokuapp.com/search/${props.routeEndpoints}`
-        // `https://backend-c3c4.herokuapp.com/type/podcast`
       );
       const jsonBody = await response.json();
       setSearchRec(jsonBody.data);
@@ -29,7 +24,7 @@ export default function SearchPage(props: {
     searchRecs === undefined
       ? []
       : searchRecs.map((rec, index) => (
-          <RecentRecs
+          <RecPreview
             key={index}
             id={rec.id}
             title={rec.title}
@@ -45,7 +40,6 @@ export default function SearchPage(props: {
           />
         ));
 
-  console.log(props.routeEndpoints);
   return (
     <div className="body-grid">
       <SideBarMenu

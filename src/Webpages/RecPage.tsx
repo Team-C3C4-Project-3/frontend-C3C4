@@ -1,7 +1,7 @@
-import Recommendation from "../components/recommendation";
-import SideBarMenu from "../components/sidebarmenu";
+import Recommendation from "../components/Recommendation";
+import SideBarMenu from "../components/SideBarMenu";
 import "../css/app.css";
-import { PageProps } from "../utils/PageProps";
+import { PageProps } from "../utils/Props/PageProps";
 
 function Recommended(props: PageProps): JSX.Element {
   return (

@@ -1,4 +1,4 @@
-import { recSummaryProps } from "./recommendationPreview";
+import { recSummaryProps } from "./RecPreview";
 
 export default function StudyList(props: recSummaryProps): JSX.Element {
   return (
