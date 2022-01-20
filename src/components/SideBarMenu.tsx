@@ -156,9 +156,11 @@ export default function SideBarMenu(props: SidebarProps): JSX.Element {
         <br id="inner" />
         <br id="inner" />
         <br id="inner" />
-        <Link className="sidebarbutton" id="inner" to="/studylist">
-          <span className="span">My Study List</span>
-        </Link>
+        <div id="study-list-button">
+          <Link className="sidebarbutton" id="inner" to="/studylist">
+            <span className="span">My Study List</span>
+          </Link>
+        </div>
         <br id="inner" />
         <br id="inner" />
         <br id="inner" />
