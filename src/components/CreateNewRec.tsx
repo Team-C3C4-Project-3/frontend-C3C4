@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
-import "../css/NewModal.css";
-import separateCapitalise from "../utils/separateCapitalise";
-import postData from "../utils/postData";
-import TypeFetch from "../utils/TypeFetch";
-// import separateCapitalise from "../utils/separateCapitalise";
-import TagsFetch from "../utils/TagsFetch";
+import "../css/CreateNewRec.css";
+import separateCapitalise from "../utils/Helper-Functions/separateCapitalise";
+import postData from "../utils/Helper-Functions/postData";
+import TypeFetch from "../utils/Helper-Functions/TypeFetch";
+import TagsFetch from "../utils/Helper-Functions/TagsFetch";
 
-export default function NewModal(props: { currentUser: number }): JSX.Element {
+export default function CreateNewRec(props: {
+  currentUser: number;
+}): JSX.Element {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState<string>("");
   const [author, setAuthor] = useState<string>("");
   const [link, setLink] = useState<string>("");
   const [reason, setReason] = useState<string>("");
   const [summary, setSummary] = useState<string>("");
-  // const [message, setMessage] = useState<string>("");
   const [recommend, setRecommend] = useState<string>("");
   const [type, setType] = useState<string>("");
   const [recTypes, setRecTypes] = useState<string[]>([]);
@@ -28,12 +28,6 @@ export default function NewModal(props: { currentUser: number }): JSX.Element {
       }
     });
   }, []);
-
-  // useEffect(() => {
-  //   async () => {
-  //     setTagsOptions(await TagsFetch());
-  //   };
-  // }, []);
 
   useEffect(() => {
     TagsFetch().then((result) => {
@@ -106,17 +100,11 @@ export default function NewModal(props: { currentUser: number }): JSX.Element {
     </option>
   ));
 
-  // if tags[] includes option they want to select, don't add it to tags[]
-
   function handleSetTags(e: React.ChangeEvent<HTMLSelectElement>) {
     if (tags.includes(e.target.value) === false) {
       setTags([...tags, e.target.value]);
     }
   }
-
-  // useEffect(() => {
-  //   console.log(type);
-  // }, [type]);
 
   return (
     <>
@@ -126,9 +114,9 @@ export default function NewModal(props: { currentUser: number }): JSX.Element {
       <Modal
         id="mymodal"
         isOpen={modalIsOpen}
-        // onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         contentLabel="Example Modal"
+        ariaHideApp={false}
       >
         <div className="nav">
           <div className="title">
@@ -159,23 +147,6 @@ export default function NewModal(props: { currentUser: number }): JSX.Element {
             placeholder="Author"
             onChange={(e) => setAuthor(e.target.value)}
           />
-
-          {/* <div className="dropdown">
-            <button
-              className="btn btn-secondary dropdown-toggle"
-              type="button"
-              id="dropdownMenuButton"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Category
-            </button>
-            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              {type}
-            </div>
-          </div> */}
-
           <label htmlFor="typeInput">Category</label>
           <select
             key="typeInput"
@@ -187,7 +158,6 @@ export default function NewModal(props: { currentUser: number }): JSX.Element {
           >
             {typeOptions}
           </select>
-
           <fieldset>
             <label className="boxes">
               <input
@@ -234,7 +204,6 @@ export default function NewModal(props: { currentUser: number }): JSX.Element {
           <select
             key="tagInput"
             id="tagInput"
-            // value={tags}
             onChange={(e) => handleSetTags(e)}
           >
             <option value=""> -- select an option -- </option>

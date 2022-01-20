@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import RecentRecs, {
-  recSummaryProps,
-} from "../components/recommendationPreview";
-import SideBarMenu from "../components/sidebarmenu";
+import RecPreview, { recSummaryProps } from "../components/RecPreview";
+import SideBarMenu from "../components/SideBarMenu";
 import "../css/app.css";
-import { PageProps } from "../utils/PageProps";
+import { PageProps } from "../utils/Props/PageProps";
 
 function StudyList(props: PageProps): JSX.Element {
   const [studyList, setStudyList] = useState<recSummaryProps[]>([]);
@@ -27,7 +25,7 @@ function StudyList(props: PageProps): JSX.Element {
     studyList === undefined
       ? []
       : studyList.map((item, index) => (
-          <RecentRecs
+          <RecPreview
             key={index}
             title={item.title}
             author={item.author}

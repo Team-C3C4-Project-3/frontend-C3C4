@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import SideBarMenu from "../components/sidebarmenu";
-import RecentRecs from "../components/recommendationPreview";
-import { recSummaryProps } from "../components/recommendationPreview";
+import SideBarMenu from "../components/SideBarMenu";
+import RecPreview, { recSummaryProps } from "../components/RecPreview";
 import "../css/app.css";
-import { PageProps } from "../utils/PageProps";
+import { PageProps } from "../utils/Props/PageProps";
 
 function Home(props: PageProps): JSX.Element {
   const [displayRecs, setDisplayRecs] = useState<recSummaryProps[]>([]);
@@ -21,7 +20,7 @@ function Home(props: PageProps): JSX.Element {
   }, []);
 
   const recentrecs = displayRecs.map((rec, index) => (
-    <RecentRecs
+    <RecPreview
       key={index}
       id={rec.id}
       title={rec.title}

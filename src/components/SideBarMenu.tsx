@@ -1,12 +1,11 @@
-// import CreateNewRec from './createnewrec';
-import "../css/sidebar.css";
-import UsersFetch from "../utils/UsersFetch";
-import TypeFetch from "../utils/TypeFetch";
-import NewModal from "./NewModal";
+import "../css/SideBarMenu.css";
+import UsersFetch from "../utils/Helper-Functions/UsersFetch";
+import TypeFetch from "../utils/Helper-Functions/TypeFetch";
+import CreateNewRec from "./CreateNewRec";
 import { useState, useEffect } from "react";
-import separateCapitalise from "../utils/separateCapitalise";
+import separateCapitalise from "../utils/Helper-Functions/separateCapitalise";
 import { Link } from "react-router-dom";
-import fetchTags from "../utils/TagsFetch";
+import fetchTags from "../utils/Helper-Functions/TagsFetch";
 
 interface SidebarProps {
   currentUser: number;
@@ -105,7 +104,6 @@ export default function SideBarMenu(props: SidebarProps): JSX.Element {
         </form>
         <br id="inner" />
         <br id="inner" />
-        {/* <form> */}
         <h3>Tags</h3>
         {tagCloud}
         {props.selectedTags.length !== 0 && (
@@ -119,8 +117,6 @@ export default function SideBarMenu(props: SidebarProps): JSX.Element {
             <button>OK</button>
           </Link>
         )}
-
-        {/* </form> */}
         <br id="inner" />
         <br id="inner" />
         {props.currentUser === 0 && (
@@ -156,7 +152,7 @@ export default function SideBarMenu(props: SidebarProps): JSX.Element {
         )}
         <br id="inner" />
         <br id="inner" />
-        <NewModal currentUser={props.currentUser} />
+        <CreateNewRec currentUser={props.currentUser} />
         <br id="inner" />
         <br id="inner" />
         <br id="inner" />

@@ -5,11 +5,11 @@ import {
   useParams,
 } from "react-router-dom";
 import Home from "./Home";
-import StudyList from "./studylist";
-import Recommended from "./recommended";
+import StudyList from "./StudyListPage";
+import Recommended from "./RecPage";
 import "../css/app.css";
 import { useState } from "react";
-import { PageProps } from "../utils/PageProps";
+import { PageProps } from "../utils/Props/PageProps";
 import TypePage from "./TypePage";
 import SearchPage from "./SearchPage";
 import TagsPage from "./TagsPage";

@@ -1,4 +1,4 @@
-import CommentProps from "../utils/CommentProps";
+import CommentProps from "../utils/Props/CommentProps";
 
 export default function Comment(props: CommentProps): JSX.Element {
   return (
