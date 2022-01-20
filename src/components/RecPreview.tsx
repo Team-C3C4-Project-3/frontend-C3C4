@@ -16,14 +16,17 @@ export interface recSummaryProps {
   currentUser: number;
 }
 
-export default function RecPreview(props: recSummaryProps): JSX.Element {
-  const handleAddStudyList = async (user_id: number, rec_id: number) => {
-    postData(`/study-list/${user_id}/${rec_id}`, {
-      user_id,
-      rec_id,
-    });
-  };
+export async function handleAddStudyList(
+  user_id: number,
+  rec_id: number
+): Promise<void> {
+  postData(`/study-list/${user_id}/${rec_id}`, {
+    user_id,
+    rec_id,
+  });
+}
 
+export default function RecPreview(props: recSummaryProps): JSX.Element {
   const handleRemoveStudyList = async (user_id: number, rec_id: number) => {
     const response = await fetch(
       `https://backend-c3c4.herokuapp.com/study-list/${user_id}/${rec_id}`,
