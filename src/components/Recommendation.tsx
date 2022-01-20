@@ -119,7 +119,7 @@ export default function Recommendation({
     setCurrentRec(currentRec);
   }
   return (
-    <div>
+    <div className="recommendation-page">
       {rec.recInfo.length === 0 ? (
         <div>
           <Link to="/">Return to Home page</Link>
