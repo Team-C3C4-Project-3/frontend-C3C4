@@ -41,6 +41,7 @@ export default function RecPreview(props: recSummaryProps): JSX.Element {
   return (
     <div className="rec-preview">
       <Link
+        className="rec-preview-title"
         to="/recommended"
         onClick={() => {
           props.setCurrentRec(props.id);
@@ -49,11 +50,14 @@ export default function RecPreview(props: recSummaryProps): JSX.Element {
         {props.title}
       </Link>
       <br />
-      <a href={props.link}>Go to resource</a>
-      <p>{props.summary}</p>
-      <p>Author of resource: {props.author}</p>
+      <a className="rec-preview-link" href={props.link}>
+        Go to resource
+      </a>
+      <p className="rec-preview-summary">{props.summary}</p>
+      <p className="rec-preview-author">Author of resource: {props.author}</p>
       {location.pathname === "/studylist" ? (
         <button
+          className="rec-preview-remove-button"
           onClick={() => handleRemoveStudyList(props.currentUser, props.id)}
         >
           - Remove from study list
@@ -61,6 +65,7 @@ export default function RecPreview(props: recSummaryProps): JSX.Element {
       ) : (
         props.currentUser !== 0 && (
           <button
+            className="rec-preview-add-button"
             onClick={() => handleAddStudyList(props.currentUser, props.id)}
           >
             + Add to my study list
