@@ -20,8 +20,8 @@ jobs:
     - name: Check types compile
       run: yarn type-check
     - name: Check unit tests pass
-      run: yarn test
+      run: yarn unit-test
     - name: Check E2E tests pass
-      run: yarn run cypress
+      run: yarn e2e-test
     - name: Check app builds
       run: yarn build
