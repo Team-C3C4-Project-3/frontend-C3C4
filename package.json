@@ -17,8 +17,9 @@
     "format:check": "prettier --check src",
     "lint": "eslint src",
     "type-check": "tsc --noEmit",
-    "test": "react-scripts test --watchAll=false",
+    "unit test": "react-scripts test --watchAll=false",
     "test:watch": "react-scripts test",
+    "e2e test": "cypress run",
     "start": "react-scripts start",
     "build": "react-scripts build"
   },
