@@ -6,7 +6,7 @@ describe("add-to-study-list", () => {
   });
 
   it("Modal appears when button is clicked", () => {
-    cy.get(".login-dropdown").select(3);
+    cy.get(".login-dropdown").select(2);
 
     cy.get(".rec-preview .rec-preview-title", { timeout: 20000 }).eq(0).click();
 
@@ -14,9 +14,13 @@ describe("add-to-study-list", () => {
 
     cy.get(".rec-preview-add-button", { timeout: 20000 }).click();
 
-    cy.get(".study-list-button .sidebarbutton", { timeout: 20000 }).click();
+    cy.get("#study-list-button .sidebarbutton ", {
+      timeout: 20000,
+    }).click();
 
-    cy.get(".study-list-top-title")
+    cy.get(".rec-preview .rec-preview-title", {
+      timeout: 20000,
+    })
       .eq(0)
       .should("have.text", "Click test in Cypress");
   });
