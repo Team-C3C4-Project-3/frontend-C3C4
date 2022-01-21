@@ -19,7 +19,9 @@ jobs:
       run: yarn lint
     - name: Check types compile
       run: yarn type-check
-    - name: Check tests pass
-      run: yarn test
+    - name: Check unit tests pass
+      run: yarn unit-test
+    - name: Check E2E tests pass
+      run: yarn e2e-test
     - name: Check app builds
       run: yarn build
